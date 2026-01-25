@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,18 +13,11 @@
     <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID" crossorigin="anonymous"></script> -->
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --screen-bg: #c4cfa1;
             --screen-pixel: #414141;
-            --text-dark: #333;
         }
-
         body {
             font-family: 'DotGothic16', monospace;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -33,686 +26,328 @@
             flex-direction: column;
             align-items: center;
             padding: 20px;
-            overflow-x: hidden;
         }
-
         .ad-banner {
-            width: 100%;
-            max-width: 728px;
-            height: 90px;
+            width: 100%; max-width: 728px; height: 90px;
             background: rgba(255,255,255,0.1);
             border: 2px dashed rgba(255,255,255,0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(255,255,255,0.5);
-            font-size: 14px;
-            margin-bottom: 20px;
-            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            color: rgba(255,255,255,0.5); font-size: 14px;
+            margin-bottom: 20px; border-radius: 8px;
         }
-
         .game-title {
-            font-size: 2rem;
-            color: white;
+            font-size: 2rem; color: white;
             text-shadow: 3px 3px 0 rgba(0,0,0,0.3);
-            margin-bottom: 15px;
-            letter-spacing: 2px;
+            margin-bottom: 15px; letter-spacing: 2px;
         }
-
-        /* 커버 선택 */
         .cover-selector {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
+            display: flex; gap: 10px; margin-bottom: 20px;
+            flex-wrap: wrap; justify-content: center;
         }
-
         .cover-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+            width: 40px; height: 40px; border-radius: 50%;
             border: 3px solid rgba(255,255,255,0.5);
-            cursor: pointer;
-            transition: all 0.2s;
-            position: relative;
-            overflow: hidden;
+            cursor: pointer; transition: all 0.2s;
         }
+        .cover-btn:hover { transform: scale(1.1); border-color: white; }
+        .cover-btn.active { border-color: white; box-shadow: 0 0 15px rgba(255,255,255,0.5); }
+        .cover-btn.pink { background: linear-gradient(135deg, #ff9a9e, #fecfef); }
+        .cover-btn.blue { background: linear-gradient(135deg, #a1c4fd, #c2e9fb); }
+        .cover-btn.purple { background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
+        .cover-btn.mint { background: linear-gradient(135deg, #84fab0, #8fd3f4); }
+        .cover-btn.orange { background: linear-gradient(135deg, #fa709a, #fee140); }
+        .cover-btn.glitter { background: linear-gradient(135deg, #f093fb, #f5576c); }
 
-        .cover-btn:hover {
-            transform: scale(1.1);
-            border-color: white;
-        }
-
-        .cover-btn.active {
-            border-color: white;
-            box-shadow: 0 0 15px rgba(255,255,255,0.5);
-        }
-
-        .cover-btn.pink { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); }
-        .cover-btn.blue { background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); }
-        .cover-btn.purple { background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); }
-        .cover-btn.mint { background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%); }
-        .cover-btn.orange { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
-        .cover-btn.glitter { 
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
-        .cover-btn.glitter::after {
-            content: '✨';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 16px;
-        }
-
-        /* 달걀 모양 기기 */
         .device {
-            position: relative;
-            width: 320px;
-            height: 400px;
+            position: relative; width: 320px; height: 400px;
             filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
         }
-
         .device-body {
-            position: absolute;
-            width: 100%;
-            height: 100%;
+            position: absolute; width: 100%; height: 100%;
             background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ff9a9e 100%);
             border-radius: 50% 50% 47% 47% / 60% 60% 40% 40%;
-            box-shadow: 
-                inset 0 -20px 40px rgba(0,0,0,0.1),
-                inset 0 10px 30px rgba(255,255,255,0.4);
-            transition: background 0.5s ease;
+            box-shadow: inset 0 -20px 40px rgba(0,0,0,0.1), inset 0 10px 30px rgba(255,255,255,0.4);
+            transition: background 0.5s;
         }
+        .device-body.pink { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ff9a9e 100%); }
+        .device-body.blue { background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 50%, #a1c4fd 100%); }
+        .device-body.purple { background: linear-gradient(135deg, #a18cd1 0%, #ddd6f3 50%, #a18cd1 100%); }
+        .device-body.mint { background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 50%, #84fab0 100%); }
+        .device-body.orange { background: linear-gradient(135deg, #fa709a 0%, #fee140 50%, #fa709a 100%); }
+        .device-body.glitter { background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #f093fb 100%); }
 
-        .device-body.pink {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ff9a9e 100%);
-        }
-        .device-body.blue {
-            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 50%, #a1c4fd 100%);
-        }
-        .device-body.purple {
-            background: linear-gradient(135deg, #a18cd1 0%, #ddd6f3 50%, #a18cd1 100%);
-        }
-        .device-body.mint {
-            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 50%, #84fab0 100%);
-        }
-        .device-body.orange {
-            background: linear-gradient(135deg, #fa709a 0%, #fee140 50%, #fa709a 100%);
-        }
-        .device-body.glitter {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #f093fb 100%);
-            position: relative;
-        }
-        .device-body.glitter::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                radial-gradient(2px 2px at 20px 30px, white, transparent),
-                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(2px 2px at 90px 40px, white, transparent),
-                radial-gradient(2px 2px at 130px 80px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(2px 2px at 160px 120px, white, transparent),
-                radial-gradient(2px 2px at 200px 60px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(2px 2px at 60px 140px, white, transparent),
-                radial-gradient(2px 2px at 240px 100px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(2px 2px at 80px 200px, white, transparent),
-                radial-gradient(2px 2px at 180px 180px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(2px 2px at 260px 200px, white, transparent),
-                radial-gradient(2px 2px at 100px 280px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(2px 2px at 220px 260px, white, transparent),
-                radial-gradient(2px 2px at 280px 300px, rgba(255,255,255,0.8), transparent);
-            border-radius: inherit;
-            animation: sparkle 2s ease-in-out infinite;
-        }
-
-        @keyframes sparkle {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; }
-        }
-
-        /* 체인 고리 */
         .chain-loop {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 25px;
-            border: 6px solid #888;
-            border-bottom: none;
-            border-radius: 20px 20px 0 0;
-            background: transparent;
+            position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+            width: 40px; height: 25px; border: 6px solid #888;
+            border-bottom: none; border-radius: 20px 20px 0 0;
         }
-
-        /* 화면 프레임 */
         .screen-frame {
-            position: absolute;
-            top: 70px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 180px;
-            height: 160px;
-            background: white;
-            border-radius: 15px;
-            padding: 8px;
+            position: absolute; top: 70px; left: 50%; transform: translateX(-50%);
+            width: 180px; height: 160px; background: white;
+            border-radius: 15px; padding: 8px;
             box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
         }
-
-        /* LCD 화면 */
         .screen {
-            width: 100%;
-            height: 100%;
-            background: var(--screen-bg);
-            border-radius: 8px;
-            position: relative;
-            overflow: hidden;
-            image-rendering: pixelated;
+            width: 100%; height: 100%; background: var(--screen-bg);
+            border-radius: 8px; position: relative; overflow: hidden;
+            transition: filter 0.5s;
         }
-
-        /* 스캔라인 효과 */
+        .screen.lights-off {
+            filter: brightness(0.3);
+        }
         .screen::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: repeating-linear-gradient(
-                0deg,
-                rgba(0,0,0,0.03) 0px,
-                rgba(0,0,0,0.03) 1px,
-                transparent 1px,
-                transparent 2px
-            );
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(0deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 2px);
             pointer-events: none;
         }
-
-        /* 화면 상단 아이콘들 */
         .screen-icons {
-            position: absolute;
-            top: 4px;
-            left: 4px;
-            right: 4px;
-            display: flex;
-            justify-content: space-between;
-            font-size: 10px;
+            position: absolute; top: 4px; left: 4px; right: 4px;
+            display: flex; justify-content: space-between; font-size: 10px;
         }
+        .screen-icon { width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; opacity: 0.3; }
+        .screen-icon.active { opacity: 1; animation: blink 0.5s infinite; }
+        @keyframes blink { 50% { opacity: 0.5; } }
 
-        .screen-icon {
-            width: 16px;
-            height: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0.4;
-        }
-
-        .screen-icon.active {
-            opacity: 1;
-        }
-
-        /* 픽셀 캐릭터 영역 */
         .pixel-pet-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
+            position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            display: flex; flex-direction: column; align-items: center;
         }
-
-        /* 픽셀 아트 캐릭터 - CSS Grid 기반 */
         .pixel-pet {
             display: grid;
             grid-template-columns: repeat(16, 6px);
             grid-template-rows: repeat(16, 6px);
-            gap: 0;
             animation: bounce 1s ease-in-out infinite;
         }
+        .pixel-pet.sleeping { animation: sleep-bounce 2s ease-in-out infinite; }
+        .pixel-pet.eating { animation: eat 0.3s ease-in-out infinite; }
+        .pixel-pet.playing { animation: wiggle 0.4s ease-in-out infinite; }
+        .pixel-pet.sick { animation: sick-shake 0.3s ease-in-out infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+        @keyframes sleep-bounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(0.95); } }
+        @keyframes eat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        @keyframes wiggle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+        @keyframes sick-shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-2px); } 75% { transform: translateX(2px); } }
 
-        .pixel-pet.sleeping {
-            animation: sleep-bounce 2s ease-in-out infinite;
-        }
+        .pixel { width: 6px; height: 6px; background: transparent; }
+        .pixel.on { background: var(--screen-pixel); }
 
-        .pixel-pet.eating {
-            animation: eat 0.3s ease-in-out infinite;
-        }
-
-        .pixel-pet.playing {
-            animation: wiggle 0.4s ease-in-out infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-4px); }
-        }
-
-        @keyframes sleep-bounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(0.95); }
-        }
-
-        @keyframes eat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        @keyframes wiggle {
-            0%, 100% { transform: rotate(-3deg); }
-            50% { transform: rotate(3deg); }
-        }
-
-        .pixel {
-            width: 6px;
-            height: 6px;
-            background: transparent;
-        }
-
-        .pixel.on {
-            background: var(--screen-pixel);
-        }
-
-        /* Z 표시 (수면) */
         .zzz-display {
-            position: absolute;
-            top: 30px;
-            right: 20px;
-            font-size: 14px;
-            color: var(--screen-pixel);
-            font-family: monospace;
+            position: absolute; top: 30px; right: 15px;
+            font-size: 12px; color: var(--screen-pixel);
             display: none;
         }
+        .zzz-display.active { display: block; animation: zzz-float 1.5s ease-in-out infinite; }
+        @keyframes zzz-float { 0%, 100% { opacity: 1; transform: translateY(0); } 50% { opacity: 0.5; transform: translateY(-5px); } }
 
-        .zzz-display.active {
-            display: block;
-            animation: zzz-float 1.5s ease-in-out infinite;
-        }
-
-        @keyframes zzz-float {
-            0%, 100% { opacity: 1; transform: translateY(0); }
-            50% { opacity: 0.5; transform: translateY(-5px); }
-        }
-
-        /* 똥 표시 */
         .poop-display {
-            position: absolute;
-            bottom: 25px;
-            font-size: 12px;
-            color: var(--screen-pixel);
+            position: absolute; bottom: 30px; font-size: 10px; color: var(--screen-pixel);
         }
+        .poop-display.left { left: 10px; }
+        .poop-display.right { right: 10px; }
 
-        .poop-display.left { left: 15px; }
-        .poop-display.right { right: 15px; }
-
-        /* 펫 이름 & 레벨 */
-        .pet-info {
-            position: absolute;
-            bottom: 8px;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            font-size: 8px;
-            color: var(--screen-pixel);
-            font-family: 'DotGothic16', monospace;
-        }
-
-        /* 스탯 바 (화면 하단) */
         .stats-display {
-            position: absolute;
-            bottom: 25px;
-            left: 8px;
-            right: 8px;
-            display: flex;
-            justify-content: space-around;
+            position: absolute; bottom: 20px; left: 8px; right: 8px;
+            display: flex; justify-content: space-around;
         }
-
-        .mini-stat {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2px;
-        }
-
-        .mini-stat-icon {
-            font-size: 8px;
-        }
-
         .mini-stat-bar {
-            width: 24px;
-            height: 4px;
-            background: rgba(0,0,0,0.2);
+            width: 24px; height: 4px; background: rgba(0,0,0,0.2);
             border: 1px solid var(--screen-pixel);
         }
+        .mini-stat-fill { height: 100%; background: var(--screen-pixel); transition: width 0.3s; }
 
-        .mini-stat-fill {
-            height: 100%;
-            background: var(--screen-pixel);
-            transition: width 0.3s;
+        .pet-info {
+            position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%);
+            font-size: 7px; color: var(--screen-pixel);
+        }
+        .message-bubble {
+            position: absolute; top: 28px; left: 50%; transform: translateX(-50%);
+            font-size: 8px; color: var(--screen-pixel); text-align: center; max-width: 140px;
         }
 
-        /* 버튼들 */
         .buttons {
-            position: absolute;
-            bottom: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 25px;
+            position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 25px;
         }
-
         .btn {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            border: none;
-            background: linear-gradient(145deg, #ffffff 0%, #e0e0e0 100%);
-            box-shadow: 
-                0 4px 0 #ccc,
-                0 6px 10px rgba(0,0,0,0.2);
-            cursor: pointer;
-            transition: all 0.1s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
+            width: 35px; height: 35px; border-radius: 50%; border: none;
+            background: linear-gradient(145deg, #fff, #e0e0e0);
+            box-shadow: 0 4px 0 #ccc, 0 6px 10px rgba(0,0,0,0.2);
+            cursor: pointer; font-size: 12px;
+            display: flex; align-items: center; justify-content: center;
         }
+        .btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #ccc; }
 
-        .btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .btn:active {
-            transform: translateY(2px);
-            box-shadow: 
-                0 2px 0 #ccc,
-                0 3px 5px rgba(0,0,0,0.2);
-        }
-
-        /* 하단 컨트롤 */
         .bottom-controls {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
+            display: flex; gap: 8px; margin-top: 20px; flex-wrap: wrap; justify-content: center;
         }
-
         .control-btn {
             background: rgba(255,255,255,0.2);
             border: 2px solid rgba(255,255,255,0.5);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-family: inherit;
-            font-size: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
+            color: white; padding: 8px 12px; border-radius: 20px;
+            font-family: inherit; font-size: 11px; cursor: pointer;
         }
+        .control-btn:hover { background: rgba(255,255,255,0.3); border-color: white; }
+        .control-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        .control-btn:hover {
-            background: rgba(255,255,255,0.3);
-            border-color: white;
-        }
-
-        /* 모달 */
         .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.8);
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
+            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.8); align-items: center; justify-content: center; z-index: 1000;
         }
-
-        .modal.active {
-            display: flex;
-        }
-
+        .modal.active { display: flex; }
         .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-            max-width: 320px;
-            width: 90%;
+            background: white; padding: 25px; border-radius: 20px;
+            text-align: center; max-width: 320px; width: 90%;
         }
-
-        .modal-content h2 {
-            margin-bottom: 20px;
-            color: #333;
-        }
-
+        .modal-content h2 { margin-bottom: 15px; color: #333; font-size: 18px; }
+        .modal-content p { margin-bottom: 10px; color: #666; font-size: 14px; }
         .modal-content input {
-            width: 100%;
-            padding: 12px;
-            border: 3px solid #ddd;
-            border-radius: 10px;
-            font-family: inherit;
-            font-size: 16px;
-            margin-bottom: 20px;
-            text-align: center;
+            width: 100%; padding: 10px; border: 3px solid #ddd;
+            border-radius: 10px; font-family: inherit; font-size: 16px;
+            margin-bottom: 15px; text-align: center;
         }
-
-        .modal-content input:focus {
-            outline: none;
-            border-color: #ff9a9e;
-        }
-
         .modal-btn {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-family: inherit;
-            font-size: 16px;
-            cursor: pointer;
-            transition: transform 0.2s;
+            background: linear-gradient(135deg, #ff9a9e, #fecfef);
+            color: white; border: none; padding: 10px 25px;
+            border-radius: 20px; font-family: inherit; font-size: 14px;
+            cursor: pointer; margin: 5px;
         }
+        .modal-btn:hover { transform: scale(1.05); }
+        .modal-btn.secondary { background: #ccc; color: #333; }
 
-        .modal-btn:hover {
-            transform: scale(1.05);
-        }
-
-        /* 죽음 화면 */
         .death-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--screen-bg);
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--screen-bg); display: none;
+            flex-direction: column; align-items: center; justify-content: center;
             border-radius: 8px;
         }
+        .death-overlay.active { display: flex; }
+        .death-text { font-size: 10px; color: var(--screen-pixel); text-align: center; }
 
-        .death-overlay.active {
-            display: flex;
+        /* Mini Game */
+        .game-overlay {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--screen-bg); display: none;
+            flex-direction: column; align-items: center; border-radius: 8px;
         }
-
-        .death-text {
-            font-size: 10px;
-            color: var(--screen-pixel);
-            text-align: center;
-            font-family: 'DotGothic16', monospace;
+        .game-overlay.active { display: flex; }
+        .game-title-small { font-size: 10px; color: var(--screen-pixel); margin-top: 10px; }
+        .game-area {
+            width: 150px; height: 80px; position: relative;
+            border: 2px solid var(--screen-pixel); margin-top: 10px;
+            overflow: hidden;
         }
-
-        /* 메시지 */
-        .message-bubble {
-            position: absolute;
-            top: 35px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 8px;
-            color: var(--screen-pixel);
-            font-family: 'DotGothic16', monospace;
-            text-align: center;
-            max-width: 120px;
+        .player {
+            position: absolute; bottom: 5px; left: 20px;
+            width: 12px; height: 12px; background: var(--screen-pixel);
+            border-radius: 50%; transition: bottom 0.15s;
         }
-
-        /* 사이드 광고 */
-        .sidebar-ad {
-            position: fixed;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 160px;
-            height: 600px;
-            background: rgba(255,255,255,0.1);
-            border: 2px dashed rgba(255,255,255,0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(255,255,255,0.5);
-            font-size: 11px;
-            text-align: center;
-            border-radius: 8px;
+        .player.jumping { bottom: 35px; }
+        .obstacle {
+            position: absolute; bottom: 5px; right: -20px;
+            width: 10px; height: 15px; background: var(--screen-pixel);
         }
+        .game-score { font-size: 10px; color: var(--screen-pixel); margin-top: 5px; }
+        .game-instruction { font-size: 8px; color: var(--screen-pixel); margin-top: 5px; }
 
-        @media (max-width: 1200px) {
-            .sidebar-ad { display: none; }
-        }
-
-        @media (max-width: 400px) {
-            .device {
-                width: 280px;
-                height: 350px;
-            }
-            .screen-frame {
-                width: 150px;
-                height: 130px;
-                top: 60px;
-            }
-            .buttons {
-                bottom: 45px;
-            }
-            .pixel-pet {
-                grid-template-columns: repeat(16, 5px);
-                grid-template-rows: repeat(16, 5px);
-            }
-            .pixel { width: 5px; height: 5px; }
-        }
-
-        /* 액션 효과 */
         .action-effect {
-            position: absolute;
-            font-size: 16px;
-            animation: effect-pop 0.6s ease-out forwards;
-            pointer-events: none;
+            position: absolute; font-size: 14px;
+            animation: effect-pop 0.6s ease-out forwards; pointer-events: none;
         }
-
         @keyframes effect-pop {
             0% { opacity: 1; transform: translateY(0) scale(1); }
             100% { opacity: 0; transform: translateY(-30px) scale(1.3); }
+        }
+
+        .sidebar-ad {
+            position: fixed; right: 20px; top: 50%; transform: translateY(-50%);
+            width: 160px; height: 600px;
+            background: rgba(255,255,255,0.1); border: 2px dashed rgba(255,255,255,0.3);
+            display: flex; align-items: center; justify-content: center;
+            color: rgba(255,255,255,0.5); font-size: 11px; text-align: center; border-radius: 8px;
+        }
+        @media (max-width: 1200px) { .sidebar-ad { display: none; } }
+        @media (max-width: 400px) {
+            .device { width: 280px; height: 350px; }
+            .screen-frame { width: 150px; height: 130px; top: 60px; }
+            .pixel-pet { grid-template-columns: repeat(16, 5px); grid-template-rows: repeat(16, 5px); }
+            .pixel { width: 5px; height: 5px; }
         }
     </style>
 </head>
 <body>
     <div class="ad-banner">AD SPACE (728x90)</div>
-
     <h1 class="game-title">TAMAGOTCHI</h1>
 
-    <!-- Cover Selector -->
     <div class="cover-selector">
-        <button class="cover-btn pink active" data-cover="pink" title="Pink"></button>
-        <button class="cover-btn blue" data-cover="blue" title="Blue"></button>
-        <button class="cover-btn purple" data-cover="purple" title="Purple"></button>
-        <button class="cover-btn mint" data-cover="mint" title="Mint"></button>
-        <button class="cover-btn orange" data-cover="orange" title="Orange"></button>
-        <button class="cover-btn glitter" data-cover="glitter" title="Glitter"></button>
+        <button class="cover-btn pink active" data-cover="pink"></button>
+        <button class="cover-btn blue" data-cover="blue"></button>
+        <button class="cover-btn purple" data-cover="purple"></button>
+        <button class="cover-btn mint" data-cover="mint"></button>
+        <button class="cover-btn orange" data-cover="orange"></button>
+        <button class="cover-btn glitter" data-cover="glitter"></button>
     </div>
 
-    <!-- Device -->
     <div class="device">
         <div class="chain-loop"></div>
         <div class="device-body pink" id="deviceBody">
-            <!-- 화면 -->
             <div class="screen-frame">
                 <div class="screen" id="screen">
-                    <!-- 상단 아이콘 -->
                     <div class="screen-icons">
                         <div class="screen-icon" id="iconHungry">🍴</div>
                         <div class="screen-icon" id="iconHappy">💡</div>
-                        <div class="screen-icon" id="iconPlay">⚽</div>
-                        <div class="screen-icon" id="iconMed">💊</div>
+                        <div class="screen-icon" id="iconSick">💀</div>
+                        <div class="screen-icon" id="iconPoop">💩</div>
                     </div>
-
-                    <!-- 메시지 -->
                     <div class="message-bubble" id="message"></div>
-
-                    <!-- 픽셀 캐릭터 -->
                     <div class="pixel-pet-container">
                         <div class="pixel-pet" id="pixelPet"></div>
                     </div>
-
-                    <!-- Z 표시 -->
                     <div class="zzz-display" id="zzzDisplay">Z z z</div>
-
-                    <!-- 똥 -->
                     <div class="poop-display left" id="poop1" style="display:none;">●~</div>
                     <div class="poop-display right" id="poop2" style="display:none;">●~</div>
-
-                    <!-- 스탯 바 -->
                     <div class="stats-display">
-                        <div class="mini-stat">
-                            <div class="mini-stat-bar"><div class="mini-stat-fill" id="barHunger" style="width:100%"></div></div>
-                        </div>
-                        <div class="mini-stat">
-                            <div class="mini-stat-bar"><div class="mini-stat-fill" id="barHappy" style="width:100%"></div></div>
-                        </div>
-                        <div class="mini-stat">
-                            <div class="mini-stat-bar"><div class="mini-stat-fill" id="barEnergy" style="width:100%"></div></div>
-                        </div>
-                        <div class="mini-stat">
-                            <div class="mini-stat-bar"><div class="mini-stat-fill" id="barClean" style="width:100%"></div></div>
-                        </div>
+                        <div class="mini-stat"><div class="mini-stat-bar"><div class="mini-stat-fill" id="barHunger"></div></div></div>
+                        <div class="mini-stat"><div class="mini-stat-bar"><div class="mini-stat-fill" id="barHappy"></div></div></div>
+                        <div class="mini-stat"><div class="mini-stat-bar"><div class="mini-stat-fill" id="barEnergy"></div></div></div>
+                        <div class="mini-stat"><div class="mini-stat-bar"><div class="mini-stat-fill" id="barClean"></div></div></div>
                     </div>
-
-                    <!-- 펫 정보 -->
-                    <div class="pet-info" id="petInfo">Lv.1</div>
-
-                    <!-- 죽음 화면 -->
+                    <div class="pet-info" id="petInfo"></div>
                     <div class="death-overlay" id="deathOverlay">
-                        <div class="death-text">
-                            💀<br>
-                            R.I.P<br>
-                            <span id="deathName"></span>
+                        <div class="death-text">💀<br>R.I.P<br><span id="deathName"></span></div>
+                    </div>
+                    <!-- Mini Game Overlay -->
+                    <div class="game-overlay" id="gameOverlay">
+                        <div class="game-title-small">JUMP GAME</div>
+                        <div class="game-area" id="gameArea">
+                            <div class="player" id="player"></div>
+                            <div class="obstacle" id="obstacle"></div>
                         </div>
+                        <div class="game-score">Score: <span id="gameScore">0</span></div>
+                        <div class="game-instruction">Press SPACE or tap to jump!</div>
                     </div>
                 </div>
             </div>
-
-            <!-- 버튼 -->
             <div class="buttons">
-                <button class="btn" id="btnA" title="선택">A</button>
-                <button class="btn" id="btnB" title="실행">B</button>
-                <button class="btn" id="btnC" title="취소">C</button>
+                <button class="btn" id="btnA">A</button>
+                <button class="btn" id="btnB">B</button>
+                <button class="btn" id="btnC">C</button>
             </div>
         </div>
     </div>
 
-    <!-- Bottom Controls -->
     <div class="bottom-controls">
-        <button class="control-btn" id="btnFeed">🍖 Feed</button>
-        <button class="control-btn" id="btnPlay">⚽ Play</button>
-        <button class="control-btn" id="btnSleep">😴 Sleep</button>
+        <button class="control-btn" id="btnFood">🍖 Food</button>
+        <button class="control-btn" id="btnSnack">🍬 Snack</button>
+        <button class="control-btn" id="btnGame">🎮 Game</button>
+        <button class="control-btn" id="btnSleep">💡 Light</button>
         <button class="control-btn" id="btnClean">🧹 Clean</button>
+        <button class="control-btn" id="btnMed">💊 Med</button>
+        <button class="control-btn" id="btnPraise">👍 Praise</button>
+        <button class="control-btn" id="btnStats">📊 Stats</button>
         <button class="control-btn" id="btnReset">🔄 Reset</button>
     </div>
 
-    <!-- Sidebar Ad -->
     <div class="sidebar-ad">AD SPACE<br>(160x600)</div>
 
     <!-- Name Modal -->
@@ -724,8 +359,34 @@
         </div>
     </div>
 
+    <!-- Stats Modal -->
+    <div class="modal" id="statsModal">
+        <div class="modal-content">
+            <h2>📊 Pet Status</h2>
+            <p>Name: <span id="statName">-</span></p>
+            <p>Age: <span id="statAge">0</span> days</p>
+            <p>Weight: <span id="statWeight">5</span> kg</p>
+            <p>Level: <span id="statLevel">1</span> (<span id="statStage">Baby</span>)</p>
+            <p>Generation: <span id="statGen">1</span></p>
+            <p>Hunger: <span id="statHunger">100</span>%</p>
+            <p>Happiness: <span id="statHappy">100</span>%</p>
+            <p>Discipline: <span id="statDisc">0</span>%</p>
+            <button class="modal-btn" id="closeStats">Close</button>
+        </div>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div class="modal" id="gameResultModal">
+        <div class="modal-content">
+            <h2>🎮 Game Over!</h2>
+            <p>Score: <span id="finalScore">0</span></p>
+            <p id="gameReward"></p>
+            <button class="modal-btn" id="closeGame">OK</button>
+        </div>
+    </div>
+
     <script>
-        // Evolution stages based on level
+        // Evolution stages
         const evolutionStages = [
             { minLevel: 1, stage: 'baby', name: 'Baby' },
             { minLevel: 3, stage: 'child', name: 'Child' },
@@ -734,587 +395,92 @@
             { minLevel: 12, stage: 'special', name: 'Master' }
         ];
 
-        // Pixel art patterns (16x16) for each evolution stage
+        // Pixel sprites
         const petSprites = {
-            // ===== BABY STAGE (Lv 1-2) =====
-            baby_normal: [
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000001111000000',
-                '0000011111100000',
-                '0000111111110000',
-                '0000110110110000',
-                '0000111111110000',
-                '0000111001110000',
-                '0000011111100000',
-                '0000001111000000',
-                '0000000110000000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000'
-            ],
-            baby_happy: [
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000001111000000',
-                '0000011111100000',
-                '0000111111110000',
-                '0000111011110000',
-                '0000111111110000',
-                '0000110000110000',
-                '0000011111100000',
-                '0000001111000000',
-                '0000000110000000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000'
-            ],
-            baby_sad: [
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000001111000000',
-                '0000011111100000',
-                '0000111111110000',
-                '0000110110110000',
-                '0000111111110000',
-                '0000110110110000',
-                '0000011111100000',
-                '0000001111000000',
-                '0000000110000000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000'
-            ],
-            baby_sleeping: [
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000001111000000',
-                '0000011111100000',
-                '0000111111110000',
-                '0000111111110000',
-                '0000111111110000',
-                '0000111111110000',
-                '0000011111100000',
-                '0000001111000000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000'
-            ],
-            baby_eating: [
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000001111000000',
-                '0000011111100000',
-                '0000111111110000',
-                '0000110110110000',
-                '0000111111110000',
-                '0000111111110000',
-                '0000011111100000',
-                '0000001111000000',
-                '0000000110000000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000'
-            ],
-
-            // ===== CHILD STAGE (Lv 3-4) =====
-            child_normal: [
-                '0000000000000000',
-                '0000011111100000',
-                '0000111111110000',
-                '0001111111111000',
-                '0001110110111000',
-                '0001110110111000',
-                '0001111111111000',
-                '0001111001111000',
-                '0000111111110000',
-                '0000011111100000',
-                '0000001111000000',
-                '0000011001100000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000'
-            ],
-            child_happy: [
-                '0000000000000000',
-                '0000011111100000',
-                '0000111111110000',
-                '0001111111111000',
-                '0001111011111000',
-                '0001110000111000',
-                '0001111111111000',
-                '0001110000111000',
-                '0000111111110000',
-                '0000011111100000',
-                '0000001111000000',
-                '0000011001100000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000'
-            ],
-            child_sad: [
-                '0000000000000000',
-                '0000011111100000',
-                '0000111111110000',
-                '0001111111111000',
-                '0001110110111000',
-                '0001111111111000',
-                '0001111111111000',
-                '0001110110111000',
-                '0000111111110000',
-                '0000011111100000',
-                '0000001111000000',
-                '0000011001100000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000'
-            ],
-            child_sleeping: [
-                '0000000000000000',
-                '0000011111100000',
-                '0000111111110000',
-                '0001111111111000',
-                '0001111111111000',
-                '0001111011111000',
-                '0001111111111000',
-                '0001111111111000',
-                '0000111111110000',
-                '0000011111100000',
-                '0000001111000000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000'
-            ],
-            child_eating: [
-                '0000000000000000',
-                '0000011111100000',
-                '0000111111110000',
-                '0001111111111000',
-                '0001110110111000',
-                '0001110110111000',
-                '0001111111111000',
-                '0001111111111000',
-                '0000111111110000',
-                '0000011111100000',
-                '0000001111000000',
-                '0000011001100000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000'
-            ],
-
-            // ===== TEEN STAGE (Lv 5-7) =====
-            teen_normal: [
-                '0000001111000000',
-                '0000011111100000',
-                '0000111111110000',
-                '0001111111111000',
-                '0011111111111100',
-                '0011100110011100',
-                '0011100110011100',
-                '0011111111111100',
-                '0011111111111100',
-                '0001111001111000',
-                '0001111111111000',
-                '0000111111110000',
-                '0000011111100000',
-                '0000001111000000',
-                '0000011001100000',
-                '0000000000000000'
-            ],
-            teen_happy: [
-                '0000001111000000',
-                '0000011111100000',
-                '0000111111110000',
-                '0001111111111000',
-                '0011111111111100',
-                '0011110110111100',
-                '0011100000011100',
-                '0011111111111100',
-                '0011110000111100',
-                '0001111111111000',
-                '0001111111111000',
-                '0000111111110000',
-                '0000011111100000',
-                '0000001111000000',
-                '0000011001100000',
-                '0000000000000000'
-            ],
-            teen_sad: [
-                '0000001111000000',
-                '0000011111100000',
-                '0000111111110000',
-                '0001111111111000',
-                '0011111111111100',
-                '0011100110011100',
-                '0011110110111100',
-                '0011111111111100',
-                '0011111111111100',
-                '0001110000111000',
-                '0001111111111000',
-                '0000111111110000',
-                '0000011111100000',
-                '0000001111000000',
-                '0000011001100000',
-                '0000000000000000'
-            ],
-            teen_sleeping: [
-                '0000001111000000',
-                '0000011111100000',
-                '0000111111110000',
-                '0001111111111000',
-                '0011111111111100',
-                '0011111111111100',
-                '0011110110111100',
-                '0011111111111100',
-                '0011111111111100',
-                '0001111111111000',
-                '0001111111111000',
-                '0000111111110000',
-                '0000011111100000',
-                '0000001111000000',
-                '0000000000000000',
-                '0000000000000000'
-            ],
-            teen_eating: [
-                '0000001111000000',
-                '0000011111100000',
-                '0000111111110000',
-                '0001111111111000',
-                '0011111111111100',
-                '0011100110011100',
-                '0011100110011100',
-                '0011111111111100',
-                '0011111001111100',
-                '0001111111111000',
-                '0001111111111000',
-                '0000111111110000',
-                '0000011111100000',
-                '0000001111000000',
-                '0000011001100000',
-                '0000000000000000'
-            ],
-
-            // ===== ADULT STAGE (Lv 8-11) =====
-            adult_normal: [
-                '0000011001100000',
-                '0000111111110000',
-                '0001111111111000',
-                '0011111111111100',
-                '0011111111111100',
-                '0111100110011110',
-                '0111100110011110',
-                '0111111111111110',
-                '0011111111111100',
-                '0011110000111100',
-                '0001111111111000',
-                '0000111111110000',
-                '0000011111100000',
-                '0000111001110000',
-                '0000110000110000',
-                '0000000000000000'
-            ],
-            adult_happy: [
-                '0000011001100000',
-                '0000111111110000',
-                '0001111111111000',
-                '0011111111111100',
-                '0011111111111100',
-                '0111110110111110',
-                '0111100000011110',
-                '0111111111111110',
-                '0011111111111100',
-                '0011100000011100',
-                '0001111111111000',
-                '0000111111110000',
-                '0000011111100000',
-                '0000111001110000',
-                '0000110000110000',
-                '0000000000000000'
-            ],
-            adult_sad: [
-                '0000011001100000',
-                '0000111111110000',
-                '0001111111111000',
-                '0011111111111100',
-                '0011111111111100',
-                '0111100110011110',
-                '0111110110111110',
-                '0111111111111110',
-                '0011111111111100',
-                '0011110110111100',
-                '0001111111111000',
-                '0000111111110000',
-                '0000011111100000',
-                '0000111001110000',
-                '0000110000110000',
-                '0000000000000000'
-            ],
-            adult_sleeping: [
-                '0000011001100000',
-                '0000111111110000',
-                '0001111111111000',
-                '0011111111111100',
-                '0011111111111100',
-                '0111111111111110',
-                '0111110110111110',
-                '0111111111111110',
-                '0011111111111100',
-                '0011111111111100',
-                '0001111111111000',
-                '0000111111110000',
-                '0000011111100000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000'
-            ],
-            adult_eating: [
-                '0000011001100000',
-                '0000111111110000',
-                '0001111111111000',
-                '0011111111111100',
-                '0011111111111100',
-                '0111100110011110',
-                '0111100110011110',
-                '0111111111111110',
-                '0011111111111100',
-                '0011111111111100',
-                '0001111111111000',
-                '0000111111110000',
-                '0000011111100000',
-                '0000111001110000',
-                '0000110000110000',
-                '0000000000000000'
-            ],
-
-            // ===== SPECIAL/MASTER STAGE (Lv 12+) =====
-            special_normal: [
-                '0000011111100000',
-                '0001100000011000',
-                '0011111111111100',
-                '0111111111111110',
-                '0111111111111110',
-                '1111100110011111',
-                '1111100110011111',
-                '1111111111111111',
-                '0111111111111110',
-                '0111110000111110',
-                '0011111111111100',
-                '0001111111111000',
-                '0000111111110000',
-                '0001110001110000',
-                '0001100000110000',
-                '0000000000000000'
-            ],
-            special_happy: [
-                '0000011111100000',
-                '0001100000011000',
-                '0011111111111100',
-                '0111111111111110',
-                '0111111111111110',
-                '1111110110111111',
-                '1111100000011111',
-                '1111111111111111',
-                '0111111111111110',
-                '0111100000011110',
-                '0011111111111100',
-                '0001111111111000',
-                '0000111111110000',
-                '0001110001110000',
-                '0001100000110000',
-                '0000000000000000'
-            ],
-            special_sad: [
-                '0000011111100000',
-                '0001100000011000',
-                '0011111111111100',
-                '0111111111111110',
-                '0111111111111110',
-                '1111100110011111',
-                '1111110110111111',
-                '1111111111111111',
-                '0111111111111110',
-                '0111110110111110',
-                '0011111111111100',
-                '0001111111111000',
-                '0000111111110000',
-                '0001110001110000',
-                '0001100000110000',
-                '0000000000000000'
-            ],
-            special_sleeping: [
-                '0000011111100000',
-                '0001100000011000',
-                '0011111111111100',
-                '0111111111111110',
-                '0111111111111110',
-                '1111111111111111',
-                '1111110110111111',
-                '1111111111111111',
-                '0111111111111110',
-                '0111111111111110',
-                '0011111111111100',
-                '0001111111111000',
-                '0000111111110000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000'
-            ],
-            special_eating: [
-                '0000011111100000',
-                '0001100000011000',
-                '0011111111111100',
-                '0111111111111110',
-                '0111111111111110',
-                '1111100110011111',
-                '1111100110011111',
-                '1111111111111111',
-                '0111111111111110',
-                '0111111111111110',
-                '0011111111111100',
-                '0001111111111000',
-                '0000111111110000',
-                '0001110001110000',
-                '0001100000110000',
-                '0000000000000000'
-            ],
-
-            // ===== COMMON SPRITES =====
-            egg: [
-                '0000000000000000',
-                '0000000000000000',
-                '0000001111000000',
-                '0000011111100000',
-                '0000111111110000',
-                '0001111111111000',
-                '0001110110111000',
-                '0011111111111100',
-                '0011111111111100',
-                '0011111111111100',
-                '0011111111111100',
-                '0001111111111000',
-                '0001111111111000',
-                '0000111111110000',
-                '0000011111100000',
-                '0000000000000000'
-            ],
-            ghost: [
-                '0000000000000000',
-                '0000011111100000',
-                '0000111111110000',
-                '0001111111111000',
-                '0001100110011000',
-                '0001100110011000',
-                '0001111111111000',
-                '0001111111111000',
-                '0001111001111000',
-                '0001111111111000',
-                '0001111111111000',
-                '0001101101101000',
-                '0001010101010000',
-                '0000000000000000',
-                '0000000000000000',
-                '0000000000000000'
-            ]
+            baby_normal: ['0000000000000000','0000000000000000','0000000000000000','0000001111000000','0000011111100000','0000111111110000','0000110110110000','0000111111110000','0000111001110000','0000011111100000','0000001111000000','0000000110000000','0000000000000000','0000000000000000','0000000000000000','0000000000000000'],
+            baby_happy: ['0000000000000000','0000000000000000','0000000000000000','0000001111000000','0000011111100000','0000111111110000','0000111011110000','0000111111110000','0000110000110000','0000011111100000','0000001111000000','0000000110000000','0000000000000000','0000000000000000','0000000000000000','0000000000000000'],
+            baby_sad: ['0000000000000000','0000000000000000','0000000000000000','0000001111000000','0000011111100000','0000111111110000','0000110110110000','0000111111110000','0000110110110000','0000011111100000','0000001111000000','0000000110000000','0000000000000000','0000000000000000','0000000000000000','0000000000000000'],
+            baby_sleeping: ['0000000000000000','0000000000000000','0000000000000000','0000001111000000','0000011111100000','0000111111110000','0000111111110000','0000111111110000','0000111111110000','0000011111100000','0000001111000000','0000000000000000','0000000000000000','0000000000000000','0000000000000000','0000000000000000'],
+            baby_eating: ['0000000000000000','0000000000000000','0000000000000000','0000001111000000','0000011111100000','0000111111110000','0000110110110000','0000111111110000','0000111111110000','0000011111100000','0000001111000000','0000000110000000','0000000000000000','0000000000000000','0000000000000000','0000000000000000'],
+            child_normal: ['0000000000000000','0000011111100000','0000111111110000','0001111111111000','0001110110111000','0001110110111000','0001111111111000','0001111001111000','0000111111110000','0000011111100000','0000001111000000','0000011001100000','0000000000000000','0000000000000000','0000000000000000','0000000000000000'],
+            child_happy: ['0000000000000000','0000011111100000','0000111111110000','0001111111111000','0001111011111000','0001110000111000','0001111111111000','0001110000111000','0000111111110000','0000011111100000','0000001111000000','0000011001100000','0000000000000000','0000000000000000','0000000000000000','0000000000000000'],
+            child_sad: ['0000000000000000','0000011111100000','0000111111110000','0001111111111000','0001110110111000','0001111111111000','0001111111111000','0001110110111000','0000111111110000','0000011111100000','0000001111000000','0000011001100000','0000000000000000','0000000000000000','0000000000000000','0000000000000000'],
+            child_sleeping: ['0000000000000000','0000011111100000','0000111111110000','0001111111111000','0001111111111000','0001111011111000','0001111111111000','0001111111111000','0000111111110000','0000011111100000','0000001111000000','0000000000000000','0000000000000000','0000000000000000','0000000000000000','0000000000000000'],
+            child_eating: ['0000000000000000','0000011111100000','0000111111110000','0001111111111000','0001110110111000','0001110110111000','0001111111111000','0001111111111000','0000111111110000','0000011111100000','0000001111000000','0000011001100000','0000000000000000','0000000000000000','0000000000000000','0000000000000000'],
+            teen_normal: ['0000001111000000','0000011111100000','0000111111110000','0001111111111000','0011111111111100','0011100110011100','0011100110011100','0011111111111100','0011111111111100','0001111001111000','0001111111111000','0000111111110000','0000011111100000','0000001111000000','0000011001100000','0000000000000000'],
+            teen_happy: ['0000001111000000','0000011111100000','0000111111110000','0001111111111000','0011111111111100','0011110110111100','0011100000011100','0011111111111100','0011110000111100','0001111111111000','0001111111111000','0000111111110000','0000011111100000','0000001111000000','0000011001100000','0000000000000000'],
+            teen_sad: ['0000001111000000','0000011111100000','0000111111110000','0001111111111000','0011111111111100','0011100110011100','0011110110111100','0011111111111100','0011111111111100','0001110000111000','0001111111111000','0000111111110000','0000011111100000','0000001111000000','0000011001100000','0000000000000000'],
+            teen_sleeping: ['0000001111000000','0000011111100000','0000111111110000','0001111111111000','0011111111111100','0011111111111100','0011110110111100','0011111111111100','0011111111111100','0001111111111000','0001111111111000','0000111111110000','0000011111100000','0000001111000000','0000000000000000','0000000000000000'],
+            teen_eating: ['0000001111000000','0000011111100000','0000111111110000','0001111111111000','0011111111111100','0011100110011100','0011100110011100','0011111111111100','0011111001111100','0001111111111000','0001111111111000','0000111111110000','0000011111100000','0000001111000000','0000011001100000','0000000000000000'],
+            adult_normal: ['0000011001100000','0000111111110000','0001111111111000','0011111111111100','0011111111111100','0111100110011110','0111100110011110','0111111111111110','0011111111111100','0011110000111100','0001111111111000','0000111111110000','0000011111100000','0000111001110000','0000110000110000','0000000000000000'],
+            adult_happy: ['0000011001100000','0000111111110000','0001111111111000','0011111111111100','0011111111111100','0111110110111110','0111100000011110','0111111111111110','0011111111111100','0011100000011100','0001111111111000','0000111111110000','0000011111100000','0000111001110000','0000110000110000','0000000000000000'],
+            adult_sad: ['0000011001100000','0000111111110000','0001111111111000','0011111111111100','0011111111111100','0111100110011110','0111110110111110','0111111111111110','0011111111111100','0011110110111100','0001111111111000','0000111111110000','0000011111100000','0000111001110000','0000110000110000','0000000000000000'],
+            adult_sleeping: ['0000011001100000','0000111111110000','0001111111111000','0011111111111100','0011111111111100','0111111111111110','0111110110111110','0111111111111110','0011111111111100','0011111111111100','0001111111111000','0000111111110000','0000011111100000','0000000000000000','0000000000000000','0000000000000000'],
+            adult_eating: ['0000011001100000','0000111111110000','0001111111111000','0011111111111100','0011111111111100','0111100110011110','0111100110011110','0111111111111110','0011111111111100','0011111111111100','0001111111111000','0000111111110000','0000011111100000','0000111001110000','0000110000110000','0000000000000000'],
+            special_normal: ['0000011111100000','0001100000011000','0011111111111100','0111111111111110','0111111111111110','1111100110011111','1111100110011111','1111111111111111','0111111111111110','0111110000111110','0011111111111100','0001111111111000','0000111111110000','0001110001110000','0001100000110000','0000000000000000'],
+            special_happy: ['0000011111100000','0001100000011000','0011111111111100','0111111111111110','0111111111111110','1111110110111111','1111100000011111','1111111111111111','0111111111111110','0111100000011110','0011111111111100','0001111111111000','0000111111110000','0001110001110000','0001100000110000','0000000000000000'],
+            special_sad: ['0000011111100000','0001100000011000','0011111111111100','0111111111111110','0111111111111110','1111100110011111','1111110110111111','1111111111111111','0111111111111110','0111110110111110','0011111111111100','0001111111111000','0000111111110000','0001110001110000','0001100000110000','0000000000000000'],
+            special_sleeping: ['0000011111100000','0001100000011000','0011111111111100','0111111111111110','0111111111111110','1111111111111111','1111110110111111','1111111111111111','0111111111111110','0111111111111110','0011111111111100','0001111111111000','0000111111110000','0000000000000000','0000000000000000','0000000000000000'],
+            special_eating: ['0000011111100000','0001100000011000','0011111111111100','0111111111111110','0111111111111110','1111100110011111','1111100110011111','1111111111111111','0111111111111110','0111111111111110','0011111111111100','0001111111111000','0000111111110000','0001110001110000','0001100000110000','0000000000000000'],
+            egg: ['0000000000000000','0000000000000000','0000001111000000','0000011111100000','0000111111110000','0001111111111000','0001110110111000','0011111111111100','0011111111111100','0011111111111100','0011111111111100','0001111111111000','0001111111111000','0000111111110000','0000011111100000','0000000000000000'],
+            ghost: ['0000000000000000','0000011111100000','0000111111110000','0001111111111000','0001100110011000','0001100110011000','0001111111111000','0001111111111000','0001111001111000','0001111111111000','0001111111111000','0001101101101000','0001010101010000','0000000000000000','0000000000000000','0000000000000000']
         };
 
-        // Get current evolution stage
+        // Game state
+        let game = {
+            name: '', hunger: 100, happiness: 100, energy: 100, cleanliness: 100,
+            level: 1, exp: 0, maxExp: 100, age: 0, weight: 5, discipline: 0, generation: 1,
+            isSleeping: false, isDead: false, isSick: false, lightsOff: false,
+            poopCount: 0, cover: 'pink', createdAt: null, lastUpdate: null
+        };
+
+        // DOM shortcuts
+        const $ = id => document.getElementById(id);
+        const pixelPetEl = $('pixelPet');
+        const screen = $('screen');
+
+        // Mini game state
+        let miniGame = { active: false, score: 0, obstacleInterval: null, jumping: false };
+
         function getEvolutionStage(level) {
             let current = evolutionStages[0];
-            for (let stage of evolutionStages) {
-                if (level >= stage.minLevel) {
-                    current = stage;
-                }
-            }
+            for (let s of evolutionStages) if (level >= s.minLevel) current = s;
             return current;
         }
 
-        // Get sprite name based on stage and mood
-        function getSpriteKey(stage, mood) {
-            return `${stage}_${mood}`;
-        }
+        function getSpriteKey(stage, mood) { return `${stage}_${mood}`; }
 
-        // 게임 상태
-        let game = {
-            name: '',
-            hunger: 100,
-            happiness: 100,
-            energy: 100,
-            cleanliness: 100,
-            level: 1,
-            exp: 0,
-            maxExp: 100,
-            isSleeping: false,
-            isDead: false,
-            poopCount: 0,
-            cover: 'pink',
-            createdAt: null,
-            lastUpdate: null
-        };
-
-        // DOM
-        const $ = id => document.getElementById(id);
-        const pixelPetEl = $('pixelPet');
-        const deviceBody = $('deviceBody');
-        const screen = $('screen');
-
-        // 픽셀 펫 렌더링
         function renderPet(spriteName) {
-            const sprite = petSprites[spriteName] || petSprites.normal;
+            const sprite = petSprites[spriteName] || petSprites.baby_normal;
             pixelPetEl.innerHTML = '';
-            
             for (let row of sprite) {
-                for (let col of row) {
-                    const pixel = document.createElement('div');
-                    pixel.className = col === '1' ? 'pixel on' : 'pixel';
-                    pixelPetEl.appendChild(pixel);
+                for (let c of row) {
+                    const p = document.createElement('div');
+                    p.className = c === '1' ? 'pixel on' : 'pixel';
+                    pixelPetEl.appendChild(p);
                 }
             }
         }
 
-        // UI 업데이트
         function updateUI() {
-            // 스탯 바
             $('barHunger').style.width = game.hunger + '%';
             $('barHappy').style.width = game.happiness + '%';
             $('barEnergy').style.width = game.energy + '%';
             $('barClean').style.width = game.cleanliness + '%';
 
-            // 아이콘 활성화 (낮은 스탯 표시)
             $('iconHungry').classList.toggle('active', game.hunger < 40);
             $('iconHappy').classList.toggle('active', game.happiness < 40);
-            $('iconPlay').classList.toggle('active', game.energy < 40);
-            $('iconMed').classList.toggle('active', game.cleanliness < 40);
+            $('iconSick').classList.toggle('active', game.isSick);
+            $('iconPoop').classList.toggle('active', game.poopCount > 0);
 
-            // 똥
             $('poop1').style.display = game.poopCount >= 1 ? 'block' : 'none';
             $('poop2').style.display = game.poopCount >= 2 ? 'block' : 'none';
 
-            // 펫 정보 (레벨 + 진화 단계)
             const stage = getEvolutionStage(game.level);
-            $('petInfo').textContent = `Lv.${game.level} ${stage.name}`;
-
-            // ZZZ
+            $('petInfo').textContent = `Lv.${game.level} ${stage.name} ${game.weight}kg`;
             $('zzzDisplay').classList.toggle('active', game.isSleeping);
+            screen.classList.toggle('lights-off', game.lightsOff);
 
-            // 펫 상태에 따른 스프라이트
             updatePetSprite();
         }
 
@@ -1325,65 +491,53 @@
                 $('deathName').textContent = game.name;
                 return;
             }
-
             $('deathOverlay').classList.remove('active');
             pixelPetEl.className = 'pixel-pet';
 
             const stage = getEvolutionStage(game.level).stage;
 
+            if (game.isSick) {
+                renderPet(getSpriteKey(stage, 'sad'));
+                pixelPetEl.classList.add('sick');
+                return;
+            }
             if (game.isSleeping) {
                 renderPet(getSpriteKey(stage, 'sleeping'));
                 pixelPetEl.classList.add('sleeping');
                 return;
             }
-
             const avg = (game.hunger + game.happiness + game.energy + game.cleanliness) / 4;
-            
-            if (avg < 30) {
-                renderPet(getSpriteKey(stage, 'sad'));
-            } else if (avg > 70) {
-                renderPet(getSpriteKey(stage, 'happy'));
-            } else {
-                renderPet(getSpriteKey(stage, 'normal'));
-            }
+            if (avg < 30) renderPet(getSpriteKey(stage, 'sad'));
+            else if (avg > 70) renderPet(getSpriteKey(stage, 'happy'));
+            else renderPet(getSpriteKey(stage, 'normal'));
         }
 
-        // 메시지 표시
         function showMessage(text) {
-            const msg = $('message');
-            msg.textContent = text;
-            setTimeout(() => msg.textContent = '', 2000);
+            $('message').textContent = text;
+            setTimeout(() => $('message').textContent = '', 2500);
         }
 
-        // 이펙트
         function showEffect(emoji) {
-            const effect = document.createElement('div');
-            effect.className = 'action-effect';
-            effect.textContent = emoji;
-            effect.style.left = Math.random() * 100 + 40 + 'px';
-            effect.style.top = Math.random() * 50 + 40 + 'px';
-            screen.appendChild(effect);
-            setTimeout(() => effect.remove(), 600);
+            const e = document.createElement('div');
+            e.className = 'action-effect';
+            e.textContent = emoji;
+            e.style.left = Math.random() * 100 + 30 + 'px';
+            e.style.top = Math.random() * 50 + 30 + 'px';
+            screen.appendChild(e);
+            setTimeout(() => e.remove(), 600);
         }
 
-        // 경험치
         function addExp(amount) {
             const oldStage = getEvolutionStage(game.level);
             game.exp += amount;
-            
             while (game.exp >= game.maxExp) {
                 game.exp -= game.maxExp;
                 game.level++;
                 game.maxExp = Math.floor(game.maxExp * 1.5);
-                
                 const newStage = getEvolutionStage(game.level);
-                
-                // Check for evolution
                 if (newStage.stage !== oldStage.stage) {
                     showMessage('EVOLVED! → ' + newStage.name);
-                    showEffect('🌟');
-                    showEffect('✨');
-                    showEffect('🎉');
+                    showEffect('🌟'); showEffect('✨');
                 } else {
                     showMessage('LEVEL UP!');
                     showEffect('⭐');
@@ -1391,121 +545,219 @@
             }
         }
 
-        // 액션들
-        function feed() {
-            if (game.isDead || game.isSleeping) return;
+        // Actions
+        function feedFood() {
+            if (game.isDead || game.isSleeping || game.isSick) return;
             game.hunger = Math.min(100, game.hunger + 30);
-            game.cleanliness = Math.max(0, game.cleanliness - 5);
+            game.weight = Math.min(99, game.weight + 1);
             addExp(10);
-            
             const stage = getEvolutionStage(game.level).stage;
             renderPet(getSpriteKey(stage, 'eating'));
             pixelPetEl.classList.add('eating');
-            showMessage('Yummy!');
-            showEffect('🍖');
-            
+            showMessage('Yummy!'); showEffect('🍖');
             if (Math.random() < 0.3 && game.poopCount < 2) game.poopCount++;
-            
             setTimeout(updatePetSprite, 1500);
-            updateUI();
-            saveGame();
+            updateUI(); saveGame();
         }
 
-        function play() {
-            if (game.isDead || game.isSleeping) return;
-            if (game.energy < 20) {
-                showMessage('Too tired...');
-                return;
-            }
-            
-            game.happiness = Math.min(100, game.happiness + 25);
-            game.energy = Math.max(0, game.energy - 15);
-            game.hunger = Math.max(0, game.hunger - 10);
-            addExp(15);
-            
+        function feedSnack() {
+            if (game.isDead || game.isSleeping || game.isSick) return;
+            game.happiness = Math.min(100, game.happiness + 20);
+            game.weight = Math.min(99, game.weight + 2);
+            addExp(5);
             const stage = getEvolutionStage(game.level).stage;
-            renderPet(getSpriteKey(stage, 'happy'));
-            pixelPetEl.classList.add('playing');
-            showMessage('So fun!');
-            showEffect('⚽');
-            
-            setTimeout(updatePetSprite, 2000);
-            updateUI();
-            saveGame();
+            renderPet(getSpriteKey(stage, 'eating'));
+            pixelPetEl.classList.add('eating');
+            showMessage('Sweet!'); showEffect('🍬');
+            // Too much snack can make sick
+            if (game.weight > 50 && Math.random() < 0.2) {
+                game.isSick = true;
+                showMessage('Feeling sick...');
+            }
+            setTimeout(updatePetSprite, 1500);
+            updateUI(); saveGame();
         }
 
-        function sleep() {
+        function toggleLight() {
             if (game.isDead) return;
-            
-            game.isSleeping = !game.isSleeping;
-            showMessage(game.isSleeping ? 'zzZ...' : 'Good morning!');
-            updateUI();
-            saveGame();
+            game.lightsOff = !game.lightsOff;
+            if (game.lightsOff) {
+                game.isSleeping = true;
+                showMessage('Good night...');
+            } else {
+                game.isSleeping = false;
+                showMessage('Good morning!');
+            }
+            updateUI(); saveGame();
         }
 
         function clean() {
             if (game.isDead || game.isSleeping) return;
-            
             game.cleanliness = Math.min(100, game.cleanliness + 40);
             game.poopCount = 0;
             addExp(5);
-            
-            showMessage('Sparkly!');
-            showEffect('✨');
-            updateUI();
-            saveGame();
+            showMessage('Clean!'); showEffect('✨');
+            updateUI(); saveGame();
         }
 
-        // 게임 틱
+        function giveMedicine() {
+            if (game.isDead || !game.isSick) return;
+            game.isSick = false;
+            game.happiness = Math.max(0, game.happiness - 10); // Medicine tastes bad
+            showMessage('Cured!'); showEffect('💊');
+            updateUI(); saveGame();
+        }
+
+        function praise() {
+            if (game.isDead || game.isSleeping) return;
+            game.discipline = Math.min(100, game.discipline + 10);
+            game.happiness = Math.min(100, game.happiness + 5);
+            addExp(5);
+            showMessage('Good job!'); showEffect('👍');
+            updateUI(); saveGame();
+        }
+
+        function showStats() {
+            $('statName').textContent = game.name;
+            $('statAge').textContent = game.age;
+            $('statWeight').textContent = game.weight;
+            $('statLevel').textContent = game.level;
+            $('statStage').textContent = getEvolutionStage(game.level).name;
+            $('statGen').textContent = game.generation;
+            $('statHunger').textContent = Math.round(game.hunger);
+            $('statHappy').textContent = Math.round(game.happiness);
+            $('statDisc').textContent = Math.round(game.discipline);
+            $('statsModal').classList.add('active');
+        }
+
+        // Mini Game
+        function startMiniGame() {
+            if (game.isDead || game.isSleeping || game.isSick) return;
+            if (game.energy < 20) { showMessage('Too tired...'); return; }
+            
+            miniGame.active = true;
+            miniGame.score = 0;
+            $('gameScore').textContent = '0';
+            $('gameOverlay').classList.add('active');
+            $('obstacle').style.right = '-20px';
+            
+            miniGame.obstacleInterval = setInterval(moveObstacle, 50);
+        }
+
+        function moveObstacle() {
+            const obstacle = $('obstacle');
+            const player = $('player');
+            let pos = parseInt(obstacle.style.right) || -20;
+            pos += 3;
+            
+            if (pos > 160) {
+                pos = -20;
+                miniGame.score++;
+                $('gameScore').textContent = miniGame.score;
+            }
+            
+            obstacle.style.right = pos + 'px';
+            
+            // Collision detection
+            const playerRect = player.getBoundingClientRect();
+            const obstacleRect = obstacle.getBoundingClientRect();
+            
+            if (pos > 100 && pos < 140 && !miniGame.jumping) {
+                endMiniGame();
+            }
+        }
+
+        function jump() {
+            if (!miniGame.active || miniGame.jumping) return;
+            miniGame.jumping = true;
+            $('player').classList.add('jumping');
+            setTimeout(() => {
+                $('player').classList.remove('jumping');
+                miniGame.jumping = false;
+            }, 400);
+        }
+
+        function endMiniGame() {
+            clearInterval(miniGame.obstacleInterval);
+            miniGame.active = false;
+            $('gameOverlay').classList.remove('active');
+            
+            // Rewards
+            const score = miniGame.score;
+            let happyGain = Math.min(30, score * 3);
+            let expGain = Math.min(20, score * 2);
+            
+            game.happiness = Math.min(100, game.happiness + happyGain);
+            game.energy = Math.max(0, game.energy - 15);
+            game.weight = Math.max(1, game.weight - 1);
+            addExp(expGain);
+            
+            $('finalScore').textContent = score;
+            $('gameReward').textContent = `+${happyGain} Happiness, +${expGain} EXP`;
+            $('gameResultModal').classList.add('active');
+            
+            updateUI(); saveGame();
+        }
+
+        // Game tick
         function gameTick() {
             if (game.isDead) return;
             
+            // Age increases daily
+            if (game.createdAt) {
+                game.age = Math.floor((Date.now() - game.createdAt) / (1000 * 60 * 60 * 24));
+            }
+
             if (game.isSleeping) {
-                game.energy = Math.min(100, game.energy + 3);
-                game.hunger = Math.max(0, game.hunger - 1);
+                game.energy = Math.min(100, game.energy + 5);
+                game.hunger = Math.max(0, game.hunger - 0.5);
             } else {
                 game.hunger = Math.max(0, game.hunger - 2);
-                game.happiness = Math.max(0, game.happiness - 1.5);
+                game.happiness = Math.max(0, game.happiness - 1);
                 game.energy = Math.max(0, game.energy - 1);
                 game.cleanliness = Math.max(0, game.cleanliness - 1);
             }
 
+            // Random poop
             if (!game.isSleeping && Math.random() < 0.05 && game.poopCount < 2) {
                 game.poopCount++;
                 game.cleanliness = Math.max(0, game.cleanliness - 10);
             }
 
-            if (game.hunger <= 0 || game.happiness <= 0) {
+            // Get sick from poor care
+            if (!game.isSick && (game.cleanliness < 20 || game.poopCount >= 2) && Math.random() < 0.1) {
+                game.isSick = true;
+                showMessage('Feeling sick!');
+            }
+
+            // Death check
+            if (game.hunger <= 0 || game.happiness <= 0 || (game.isSick && Math.random() < 0.05)) {
                 game.isDead = true;
             }
 
-            updateUI();
-            saveGame();
+            updateUI(); saveGame();
         }
 
-        // 커버 변경
+        // Cover
         function changeCover(cover) {
             game.cover = cover;
-            deviceBody.className = 'device-body ' + cover;
-            document.querySelectorAll('.cover-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.cover === cover);
-            });
+            $('deviceBody').className = 'device-body ' + cover;
+            document.querySelectorAll('.cover-btn').forEach(b => b.classList.toggle('active', b.dataset.cover === cover));
             saveGame();
         }
 
-        // 저장/불러오기
+        // Save/Load
         function saveGame() {
             game.lastUpdate = Date.now();
-            localStorage.setItem('tamagochi_v2', JSON.stringify(game));
+            localStorage.setItem('tamagochi_v3', JSON.stringify(game));
         }
 
         function loadGame() {
-            const saved = localStorage.getItem('tamagochi_v2');
+            const saved = localStorage.getItem('tamagochi_v3');
             if (saved) {
-                const parsed = JSON.parse(saved);
-                game = { ...game, ...parsed };
+                game = { ...game, ...JSON.parse(saved) };
                 
-                // 오프라인 시간
+                // Offline time
                 if (game.lastUpdate) {
                     const offline = Math.min(Math.floor((Date.now() - game.lastUpdate) / 5000), 100);
                     for (let i = 0; i < offline; i++) {
@@ -1517,6 +769,10 @@
                     if (game.hunger <= 0 || game.happiness <= 0) game.isDead = true;
                 }
                 
+                if (game.createdAt) {
+                    game.age = Math.floor((Date.now() - game.createdAt) / (1000 * 60 * 60 * 24));
+                }
+                
                 changeCover(game.cover || 'pink');
                 return true;
             }
@@ -1524,11 +780,12 @@
         }
 
         function resetGame() {
-            if (!confirm('Reset game?')) return;
-            localStorage.removeItem('tamagochi_v2');
+            if (!confirm('Reset game? All data will be lost.')) return;
+            localStorage.removeItem('tamagochi_v3');
             game = {
                 name: '', hunger: 100, happiness: 100, energy: 100, cleanliness: 100,
-                level: 1, exp: 0, maxExp: 100, isSleeping: false, isDead: false,
+                level: 1, exp: 0, maxExp: 100, age: 0, weight: 5, discipline: 0, generation: 1,
+                isSleeping: false, isDead: false, isSick: false, lightsOff: false,
                 poopCount: 0, cover: 'pink', createdAt: null, lastUpdate: null
             };
             $('deathOverlay').classList.remove('active');
@@ -1537,20 +794,22 @@
             updateUI();
         }
 
-        // 이벤트
-        $('btnFeed').onclick = feed;
-        $('btnPlay').onclick = play;
-        $('btnSleep').onclick = sleep;
+        // Events
+        $('btnFood').onclick = feedFood;
+        $('btnSnack').onclick = feedSnack;
+        $('btnGame').onclick = startMiniGame;
+        $('btnSleep').onclick = toggleLight;
         $('btnClean').onclick = clean;
+        $('btnMed').onclick = giveMedicine;
+        $('btnPraise').onclick = praise;
+        $('btnStats').onclick = showStats;
         $('btnReset').onclick = resetGame;
 
-        $('btnA').onclick = feed;
-        $('btnB').onclick = play;
-        $('btnC').onclick = sleep;
+        $('btnA').onclick = feedFood;
+        $('btnB').onclick = startMiniGame;
+        $('btnC').onclick = toggleLight;
 
-        document.querySelectorAll('.cover-btn').forEach(btn => {
-            btn.onclick = () => changeCover(btn.dataset.cover);
-        });
+        document.querySelectorAll('.cover-btn').forEach(b => b.onclick = () => changeCover(b.dataset.cover));
 
         $('nameSubmit').onclick = () => {
             const name = $('nameInput').value.trim();
@@ -1559,19 +818,22 @@
                 game.createdAt = Date.now();
                 $('nameModal').classList.remove('active');
                 renderPet('egg');
-                setTimeout(() => {
-                    showMessage(name + ' is born!');
-                    updatePetSprite();
-                }, 1500);
+                setTimeout(() => { showMessage(name + ' is born!'); updatePetSprite(); }, 1500);
                 saveGame();
             }
         };
+        $('nameInput').onkeypress = e => { if (e.key === 'Enter') $('nameSubmit').click(); };
 
-        $('nameInput').onkeypress = e => {
-            if (e.key === 'Enter') $('nameSubmit').click();
-        };
+        $('closeStats').onclick = () => $('statsModal').classList.remove('active');
+        $('closeGame').onclick = () => $('gameResultModal').classList.remove('active');
 
-        // 초기화
+        // Keyboard for mini game
+        document.addEventListener('keydown', e => {
+            if (e.code === 'Space' && miniGame.active) { e.preventDefault(); jump(); }
+        });
+        $('gameArea').onclick = jump;
+
+        // Init
         function init() {
             if (!loadGame() || !game.name) {
                 $('nameModal').classList.add('active');
@@ -1579,7 +841,6 @@
             } else {
                 updateUI();
             }
-            
             setInterval(gameTick, 5000);
         }
 

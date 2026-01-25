@@ -7,7 +7,7 @@
     <meta name="description" content="귀여운 디지털 펫을 키워보세요! 무료 온라인 다마고치 게임">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Galmuri11&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
     
     <!-- Google AdSense -->
     <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID" crossorigin="anonymous"></script> -->
@@ -20,97 +20,202 @@
         }
 
         :root {
-            --bg-color: #e8dcc4;
-            --device-color: #7eb8a2;
-            --device-dark: #5a9a82;
-            --screen-bg: #9bbc0f;
-            --screen-dark: #8bac0f;
-            --text-dark: #0f380f;
-            --button-color: #d4a574;
-            --button-shadow: #b8956a;
-            --heart-color: #e74c3c;
+            --screen-bg: #c4cfa1;
+            --screen-pixel: #414141;
+            --text-dark: #333;
         }
 
         body {
-            font-family: 'DotGothic16', 'Galmuri11', monospace;
-            background: var(--bg-color);
+            font-family: 'DotGothic16', monospace;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 20px;
-            background-image: 
-                radial-gradient(circle at 25% 25%, rgba(255,255,255,0.2) 0%, transparent 50%),
-                radial-gradient(circle at 75% 75%, rgba(0,0,0,0.05) 0%, transparent 50%);
+            overflow-x: hidden;
         }
 
         .ad-banner {
             width: 100%;
             max-width: 728px;
             height: 90px;
-            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
-            border: 2px dashed #ccc;
+            background: rgba(255,255,255,0.1);
+            border: 2px dashed rgba(255,255,255,0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #999;
+            color: rgba(255,255,255,0.5);
             font-size: 14px;
             margin-bottom: 20px;
             border-radius: 8px;
         }
 
         .game-title {
-            font-size: 2.5rem;
-            color: var(--text-dark);
-            text-shadow: 3px 3px 0 rgba(255,255,255,0.5);
-            margin-bottom: 20px;
+            font-size: 2rem;
+            color: white;
+            text-shadow: 3px 3px 0 rgba(0,0,0,0.3);
+            margin-bottom: 15px;
             letter-spacing: 2px;
         }
 
-        .device {
-            background: linear-gradient(145deg, var(--device-color) 0%, var(--device-dark) 100%);
-            border-radius: 40px;
-            padding: 30px;
-            box-shadow: 
-                0 20px 60px rgba(0,0,0,0.3),
-                inset 0 2px 10px rgba(255,255,255,0.3),
-                inset 0 -5px 20px rgba(0,0,0,0.2);
-            position: relative;
-        }
-
-        .device::before {
-            content: '';
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 8px;
-            background: rgba(0,0,0,0.2);
-            border-radius: 4px;
-        }
-
-        .screen-frame {
-            background: #2a2a2a;
-            border-radius: 20px;
-            padding: 15px;
-            box-shadow: inset 0 5px 20px rgba(0,0,0,0.5);
-        }
-
-        .screen {
-            width: 280px;
-            height: 280px;
-            background: var(--screen-bg);
-            border-radius: 10px;
-            position: relative;
-            overflow: hidden;
+        /* 커버 선택 */
+        .cover-selector {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
             justify-content: center;
         }
 
-        /* CRT 스캔라인 효과 */
+        .cover-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 3px solid rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cover-btn:hover {
+            transform: scale(1.1);
+            border-color: white;
+        }
+
+        .cover-btn.active {
+            border-color: white;
+            box-shadow: 0 0 15px rgba(255,255,255,0.5);
+        }
+
+        .cover-btn.pink { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); }
+        .cover-btn.blue { background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); }
+        .cover-btn.purple { background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); }
+        .cover-btn.mint { background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%); }
+        .cover-btn.orange { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        .cover-btn.glitter { 
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .cover-btn.glitter::after {
+            content: '✨';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 16px;
+        }
+
+        /* 달걀 모양 기기 */
+        .device {
+            position: relative;
+            width: 320px;
+            height: 400px;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
+        }
+
+        .device-body {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ff9a9e 100%);
+            border-radius: 50% 50% 47% 47% / 60% 60% 40% 40%;
+            box-shadow: 
+                inset 0 -20px 40px rgba(0,0,0,0.1),
+                inset 0 10px 30px rgba(255,255,255,0.4);
+            transition: background 0.5s ease;
+        }
+
+        .device-body.pink {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ff9a9e 100%);
+        }
+        .device-body.blue {
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 50%, #a1c4fd 100%);
+        }
+        .device-body.purple {
+            background: linear-gradient(135deg, #a18cd1 0%, #ddd6f3 50%, #a18cd1 100%);
+        }
+        .device-body.mint {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 50%, #84fab0 100%);
+        }
+        .device-body.orange {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 50%, #fa709a 100%);
+        }
+        .device-body.glitter {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #f093fb 100%);
+            position: relative;
+        }
+        .device-body.glitter::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, white, transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(2px 2px at 90px 40px, white, transparent),
+                radial-gradient(2px 2px at 130px 80px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(2px 2px at 160px 120px, white, transparent),
+                radial-gradient(2px 2px at 200px 60px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(2px 2px at 60px 140px, white, transparent),
+                radial-gradient(2px 2px at 240px 100px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(2px 2px at 80px 200px, white, transparent),
+                radial-gradient(2px 2px at 180px 180px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(2px 2px at 260px 200px, white, transparent),
+                radial-gradient(2px 2px at 100px 280px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(2px 2px at 220px 260px, white, transparent),
+                radial-gradient(2px 2px at 280px 300px, rgba(255,255,255,0.8), transparent);
+            border-radius: inherit;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        /* 체인 고리 */
+        .chain-loop {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 25px;
+            border: 6px solid #888;
+            border-bottom: none;
+            border-radius: 20px 20px 0 0;
+            background: transparent;
+        }
+
+        /* 화면 프레임 */
+        .screen-frame {
+            position: absolute;
+            top: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 160px;
+            background: white;
+            border-radius: 15px;
+            padding: 8px;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        /* LCD 화면 */
+        .screen {
+            width: 100%;
+            height: 100%;
+            background: var(--screen-bg);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            image-rendering: pixelated;
+        }
+
+        /* 스캔라인 효과 */
         .screen::after {
             content: '';
             position: absolute;
@@ -128,319 +233,230 @@
             pointer-events: none;
         }
 
-        .stats-bar {
+        /* 화면 상단 아이콘들 */
+        .screen-icons {
             position: absolute;
-            top: 10px;
-            left: 10px;
-            right: 10px;
+            top: 4px;
+            left: 4px;
+            right: 4px;
             display: flex;
             justify-content: space-between;
-            font-size: 12px;
-            color: var(--text-dark);
+            font-size: 10px;
         }
 
-        .stat {
+        .screen-icon {
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.4;
+        }
+
+        .screen-icon.active {
+            opacity: 1;
+        }
+
+        /* 픽셀 캐릭터 영역 */
+        .pixel-pet-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* 픽셀 아트 캐릭터 - CSS Grid 기반 */
+        .pixel-pet {
+            display: grid;
+            grid-template-columns: repeat(16, 6px);
+            grid-template-rows: repeat(16, 6px);
+            gap: 0;
+            animation: bounce 1s ease-in-out infinite;
+        }
+
+        .pixel-pet.sleeping {
+            animation: sleep-bounce 2s ease-in-out infinite;
+        }
+
+        .pixel-pet.eating {
+            animation: eat 0.3s ease-in-out infinite;
+        }
+
+        .pixel-pet.playing {
+            animation: wiggle 0.4s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        @keyframes sleep-bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(0.95); }
+        }
+
+        @keyframes eat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        .pixel {
+            width: 6px;
+            height: 6px;
+            background: transparent;
+        }
+
+        .pixel.on {
+            background: var(--screen-pixel);
+        }
+
+        /* Z 표시 (수면) */
+        .zzz-display {
+            position: absolute;
+            top: 30px;
+            right: 20px;
+            font-size: 14px;
+            color: var(--screen-pixel);
+            font-family: monospace;
+            display: none;
+        }
+
+        .zzz-display.active {
+            display: block;
+            animation: zzz-float 1.5s ease-in-out infinite;
+        }
+
+        @keyframes zzz-float {
+            0%, 100% { opacity: 1; transform: translateY(0); }
+            50% { opacity: 0.5; transform: translateY(-5px); }
+        }
+
+        /* 똥 표시 */
+        .poop-display {
+            position: absolute;
+            bottom: 25px;
+            font-size: 12px;
+            color: var(--screen-pixel);
+        }
+
+        .poop-display.left { left: 15px; }
+        .poop-display.right { right: 15px; }
+
+        /* 펫 이름 & 레벨 */
+        .pet-info {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            font-size: 8px;
+            color: var(--screen-pixel);
+            font-family: 'DotGothic16', monospace;
+        }
+
+        /* 스탯 바 (화면 하단) */
+        .stats-display {
+            position: absolute;
+            bottom: 25px;
+            left: 8px;
+            right: 8px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .mini-stat {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 2px;
         }
 
-        .stat-icon {
-            font-size: 16px;
+        .mini-stat-icon {
+            font-size: 8px;
         }
 
-        .stat-bar {
-            width: 40px;
-            height: 6px;
-            background: rgba(0,0,0,0.2);
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .stat-fill {
-            height: 100%;
-            background: var(--text-dark);
-            transition: width 0.3s ease;
-        }
-
-        .stat-fill.low {
-            background: #c0392b;
-            animation: blink 0.5s infinite;
-        }
-
-        @keyframes blink {
-            50% { opacity: 0.5; }
-        }
-
-        .pet-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
-        }
-
-        .pet {
-            width: 120px;
-            height: 120px;
-            position: relative;
-            animation: bounce 1s ease-in-out infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .pet.sleeping {
-            animation: sleep 2s ease-in-out infinite;
-        }
-
-        @keyframes sleep {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(0.95); }
-        }
-
-        .pet.eating {
-            animation: eat 0.3s ease-in-out infinite;
-        }
-
-        @keyframes eat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        .pet.playing {
-            animation: play 0.5s ease-in-out infinite;
-        }
-
-        @keyframes play {
-            0%, 100% { transform: rotate(-5deg); }
-            50% { transform: rotate(5deg); }
-        }
-
-        /* 픽셀 아트 스타일 펫 */
-        .pet-body {
-            width: 80px;
-            height: 80px;
-            background: var(--text-dark);
-            border-radius: 50% 50% 45% 45%;
-            position: absolute;
-            top: 20px;
-            left: 20px;
-        }
-
-        .pet-eye {
-            width: 16px;
-            height: 16px;
-            background: var(--screen-bg);
-            border-radius: 50%;
-            position: absolute;
-            top: 40px;
-        }
-
-        .pet-eye.left { left: 35px; }
-        .pet-eye.right { right: 35px; }
-
-        .pet-eye::after {
-            content: '';
-            width: 8px;
-            height: 8px;
-            background: var(--text-dark);
-            border-radius: 50%;
-            position: absolute;
-            top: 4px;
-            left: 4px;
-        }
-
-        .pet-eye.closed {
+        .mini-stat-bar {
+            width: 24px;
             height: 4px;
-            border-radius: 0;
-            top: 46px;
-        }
-
-        .pet-eye.closed::after {
-            display: none;
-        }
-
-        .pet-mouth {
-            width: 20px;
-            height: 10px;
-            border: 3px solid var(--screen-bg);
-            border-top: none;
-            border-radius: 0 0 20px 20px;
-            position: absolute;
-            top: 65px;
-            left: 50px;
-        }
-
-        .pet-mouth.happy {
-            height: 15px;
-        }
-
-        .pet-mouth.sad {
-            transform: rotate(180deg);
-            top: 62px;
-        }
-
-        .pet-mouth.eating {
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            border: none;
-            background: var(--screen-bg);
-        }
-
-        .pet-cheek {
-            width: 12px;
-            height: 8px;
-            background: rgba(231, 76, 60, 0.5);
-            border-radius: 50%;
-            position: absolute;
-            top: 55px;
-        }
-
-        .pet-cheek.left { left: 25px; }
-        .pet-cheek.right { right: 25px; }
-
-        .zzz {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-size: 20px;
-            color: var(--text-dark);
-            animation: zzz 1s ease-in-out infinite;
-            display: none;
-        }
-
-        @keyframes zzz {
-            0%, 100% { opacity: 1; transform: translateY(0); }
-            50% { opacity: 0.5; transform: translateY(-10px); }
-        }
-
-        .pet.sleeping .zzz {
-            display: block;
-        }
-
-        .pet-name {
-            font-size: 14px;
-            color: var(--text-dark);
-            margin-top: 5px;
-            text-align: center;
-        }
-
-        .level-badge {
-            font-size: 11px;
             background: rgba(0,0,0,0.2);
-            padding: 2px 8px;
-            border-radius: 10px;
-            margin-top: 3px;
+            border: 1px solid var(--screen-pixel);
         }
 
-        .message {
+        .mini-stat-fill {
+            height: 100%;
+            background: var(--screen-pixel);
+            transition: width 0.3s;
+        }
+
+        /* 버튼들 */
+        .buttons {
             position: absolute;
-            bottom: 15px;
+            bottom: 50px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 12px;
-            color: var(--text-dark);
-            text-align: center;
-            max-width: 200px;
-            min-height: 30px;
-        }
-
-        .controls {
             display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 25px;
+            gap: 25px;
         }
 
         .btn {
-            width: 60px;
-            height: 60px;
-            border: none;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
-            background: linear-gradient(145deg, var(--button-color) 0%, var(--button-shadow) 100%);
+            border: none;
+            background: linear-gradient(145deg, #ffffff 0%, #e0e0e0 100%);
             box-shadow: 
-                0 6px 0 var(--button-shadow),
-                0 8px 15px rgba(0,0,0,0.3);
+                0 4px 0 #ccc,
+                0 6px 10px rgba(0,0,0,0.2);
             cursor: pointer;
+            transition: all 0.1s;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-family: inherit;
-            font-size: 20px;
-            color: #fff;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-            transition: all 0.1s ease;
+            font-size: 12px;
         }
 
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 
-                0 8px 0 var(--button-shadow),
-                0 10px 20px rgba(0,0,0,0.3);
         }
 
         .btn:active {
-            transform: translateY(4px);
+            transform: translateY(2px);
             box-shadow: 
-                0 2px 0 var(--button-shadow),
-                0 4px 10px rgba(0,0,0,0.3);
+                0 2px 0 #ccc,
+                0 3px 5px rgba(0,0,0,0.2);
         }
 
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .btn-label {
-            font-size: 9px;
-            margin-top: 2px;
-        }
-
-        .footer-controls {
+        /* 하단 컨트롤 */
+        .bottom-controls {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             margin-top: 20px;
         }
 
-        .footer-btn {
-            background: none;
-            border: 2px solid var(--device-dark);
-            color: var(--device-dark);
-            padding: 8px 16px;
-            border-radius: 20px;
+        .control-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.5);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
             font-family: inherit;
             font-size: 12px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.2s;
         }
 
-        .footer-btn:hover {
-            background: var(--device-dark);
-            color: white;
-        }
-
-        .sidebar-ad {
-            position: fixed;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 160px;
-            height: 600px;
-            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
-            border: 2px dashed #ccc;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-            font-size: 12px;
-            text-align: center;
-            border-radius: 8px;
+        .control-btn:hover {
+            background: rgba(255,255,255,0.3);
+            border-color: white;
         }
 
         /* 모달 */
@@ -451,7 +467,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.8);
             align-items: center;
             justify-content: center;
             z-index: 1000;
@@ -462,23 +478,23 @@
         }
 
         .modal-content {
-            background: var(--bg-color);
+            background: white;
             padding: 30px;
             border-radius: 20px;
             text-align: center;
-            max-width: 350px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 320px;
+            width: 90%;
         }
 
         .modal-content h2 {
-            color: var(--text-dark);
             margin-bottom: 20px;
+            color: #333;
         }
 
         .modal-content input {
             width: 100%;
             padding: 12px;
-            border: 3px solid var(--device-color);
+            border: 3px solid #ddd;
             border-radius: 10px;
             font-family: inherit;
             font-size: 16px;
@@ -488,11 +504,11 @@
 
         .modal-content input:focus {
             outline: none;
-            border-color: var(--device-dark);
+            border-color: #ff9a9e;
         }
 
         .modal-btn {
-            background: var(--device-color);
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
             color: white;
             border: none;
             padding: 12px 30px;
@@ -500,235 +516,354 @@
             font-family: inherit;
             font-size: 16px;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: transform 0.2s;
         }
 
         .modal-btn:hover {
-            background: var(--device-dark);
+            transform: scale(1.05);
         }
 
         /* 죽음 화면 */
-        .death-screen {
+        .death-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--screen-bg);
             display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100%;
-            color: var(--text-dark);
+            border-radius: 8px;
         }
 
-        .death-screen.active {
+        .death-overlay.active {
             display: flex;
         }
 
-        .death-screen .ghost {
-            font-size: 60px;
-            margin-bottom: 10px;
-            animation: float 2s ease-in-out infinite;
+        .death-text {
+            font-size: 10px;
+            color: var(--screen-pixel);
+            text-align: center;
+            font-family: 'DotGothic16', monospace;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+        /* 메시지 */
+        .message-bubble {
+            position: absolute;
+            top: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 8px;
+            color: var(--screen-pixel);
+            font-family: 'DotGothic16', monospace;
+            text-align: center;
+            max-width: 120px;
         }
 
-        .game-content {
-            display: block;
+        /* 사이드 광고 */
+        .sidebar-ad {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 160px;
+            height: 600px;
+            background: rgba(255,255,255,0.1);
+            border: 2px dashed rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 11px;
+            text-align: center;
+            border-radius: 8px;
         }
 
-        .game-content.hidden {
-            display: none;
-        }
-
-        /* 반응형 */
         @media (max-width: 1200px) {
-            .sidebar-ad {
-                display: none;
-            }
+            .sidebar-ad { display: none; }
         }
 
-        @media (max-width: 600px) {
-            .game-title {
-                font-size: 1.8rem;
-            }
-            
+        @media (max-width: 400px) {
             .device {
-                padding: 20px;
-                border-radius: 30px;
+                width: 280px;
+                height: 350px;
             }
-            
-            .screen {
-                width: 240px;
-                height: 240px;
+            .screen-frame {
+                width: 150px;
+                height: 130px;
+                top: 60px;
             }
-            
-            .btn {
-                width: 50px;
-                height: 50px;
-                font-size: 18px;
+            .buttons {
+                bottom: 45px;
             }
-            
-            .ad-banner {
-                height: 60px;
+            .pixel-pet {
+                grid-template-columns: repeat(16, 5px);
+                grid-template-rows: repeat(16, 5px);
             }
+            .pixel { width: 5px; height: 5px; }
         }
 
-        /* 이펙트 */
-        .effect {
+        /* 액션 효과 */
+        .action-effect {
             position: absolute;
+            font-size: 16px;
+            animation: effect-pop 0.6s ease-out forwards;
             pointer-events: none;
-            animation: effectPop 0.8s ease-out forwards;
         }
 
-        @keyframes effectPop {
-            0% { 
-                opacity: 1; 
-                transform: translateY(0) scale(1); 
-            }
-            100% { 
-                opacity: 0; 
-                transform: translateY(-50px) scale(1.5); 
-            }
+        @keyframes effect-pop {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-30px) scale(1.3); }
         }
-
-        .poop {
-            position: absolute;
-            bottom: 60px;
-            font-size: 24px;
-        }
-
-        .poop.left { left: 30px; }
-        .poop.right { right: 30px; }
     </style>
 </head>
 <body>
-    <!-- 상단 배너 광고 -->
-    <div class="ad-banner">
-        <span>광고 영역 (728x90)</span>
-        <!-- AdSense 코드가 들어갈 자리 -->
+    <div class="ad-banner">광고 영역 (728x90)</div>
+
+    <h1 class="game-title">TAMAGOTCHI</h1>
+
+    <!-- 커버 선택 -->
+    <div class="cover-selector">
+        <button class="cover-btn pink active" data-cover="pink" title="핑크"></button>
+        <button class="cover-btn blue" data-cover="blue" title="블루"></button>
+        <button class="cover-btn purple" data-cover="purple" title="퍼플"></button>
+        <button class="cover-btn mint" data-cover="mint" title="민트"></button>
+        <button class="cover-btn orange" data-cover="orange" title="오렌지"></button>
+        <button class="cover-btn glitter" data-cover="glitter" title="글리터"></button>
     </div>
 
-    <h1 class="game-title">🥚 타마고치 🥚</h1>
-
+    <!-- 기기 -->
     <div class="device">
-        <div class="screen-frame">
-            <div class="screen" id="screen">
-                <!-- 게임 컨텐츠 -->
-                <div class="game-content" id="gameContent">
-                    <div class="stats-bar">
-                        <div class="stat">
-                            <span class="stat-icon">🍖</span>
-                            <div class="stat-bar">
-                                <div class="stat-fill" id="hungerBar" style="width: 100%"></div>
-                            </div>
+        <div class="chain-loop"></div>
+        <div class="device-body pink" id="deviceBody">
+            <!-- 화면 -->
+            <div class="screen-frame">
+                <div class="screen" id="screen">
+                    <!-- 상단 아이콘 -->
+                    <div class="screen-icons">
+                        <div class="screen-icon" id="iconHungry">🍴</div>
+                        <div class="screen-icon" id="iconHappy">💡</div>
+                        <div class="screen-icon" id="iconPlay">⚽</div>
+                        <div class="screen-icon" id="iconMed">💊</div>
+                    </div>
+
+                    <!-- 메시지 -->
+                    <div class="message-bubble" id="message"></div>
+
+                    <!-- 픽셀 캐릭터 -->
+                    <div class="pixel-pet-container">
+                        <div class="pixel-pet" id="pixelPet"></div>
+                    </div>
+
+                    <!-- Z 표시 -->
+                    <div class="zzz-display" id="zzzDisplay">Z z z</div>
+
+                    <!-- 똥 -->
+                    <div class="poop-display left" id="poop1" style="display:none;">●~</div>
+                    <div class="poop-display right" id="poop2" style="display:none;">●~</div>
+
+                    <!-- 스탯 바 -->
+                    <div class="stats-display">
+                        <div class="mini-stat">
+                            <div class="mini-stat-bar"><div class="mini-stat-fill" id="barHunger" style="width:100%"></div></div>
                         </div>
-                        <div class="stat">
-                            <span class="stat-icon">😊</span>
-                            <div class="stat-bar">
-                                <div class="stat-fill" id="happyBar" style="width: 100%"></div>
-                            </div>
+                        <div class="mini-stat">
+                            <div class="mini-stat-bar"><div class="mini-stat-fill" id="barHappy" style="width:100%"></div></div>
                         </div>
-                        <div class="stat">
-                            <span class="stat-icon">⚡</span>
-                            <div class="stat-bar">
-                                <div class="stat-fill" id="energyBar" style="width: 100%"></div>
-                            </div>
+                        <div class="mini-stat">
+                            <div class="mini-stat-bar"><div class="mini-stat-fill" id="barEnergy" style="width:100%"></div></div>
                         </div>
-                        <div class="stat">
-                            <span class="stat-icon">🧹</span>
-                            <div class="stat-bar">
-                                <div class="stat-fill" id="cleanBar" style="width: 100%"></div>
-                            </div>
+                        <div class="mini-stat">
+                            <div class="mini-stat-bar"><div class="mini-stat-fill" id="barClean" style="width:100%"></div></div>
                         </div>
                     </div>
 
-                    <div class="pet-container">
-                        <div class="pet" id="pet">
-                            <div class="pet-body"></div>
-                            <div class="pet-eye left" id="eyeLeft"></div>
-                            <div class="pet-eye right" id="eyeRight"></div>
-                            <div class="pet-mouth" id="mouth"></div>
-                            <div class="pet-cheek left"></div>
-                            <div class="pet-cheek right"></div>
-                            <div class="zzz">Z z z</div>
+                    <!-- 펫 정보 -->
+                    <div class="pet-info" id="petInfo">Lv.1</div>
+
+                    <!-- 죽음 화면 -->
+                    <div class="death-overlay" id="deathOverlay">
+                        <div class="death-text">
+                            💀<br>
+                            R.I.P<br>
+                            <span id="deathName"></span>
                         </div>
-                        <div class="pet-name" id="petName">???</div>
-                        <div class="level-badge">Lv.<span id="level">1</span> | <span id="exp">0</span>/<span id="maxExp">100</span> XP</div>
                     </div>
-
-                    <div class="poop left" id="poop1" style="display: none;">💩</div>
-                    <div class="poop right" id="poop2" style="display: none;">💩</div>
-
-                    <div class="message" id="message">안녕! 나를 돌봐줘!</div>
-                </div>
-
-                <!-- 죽음 화면 -->
-                <div class="death-screen" id="deathScreen">
-                    <div class="ghost">👻</div>
-                    <p>펫이 하늘나라로 갔어요...</p>
-                    <p style="font-size: 11px; margin-top: 10px;">다시 시작하려면 리셋 버튼을 눌러주세요</p>
                 </div>
             </div>
-        </div>
 
-        <div class="controls">
-            <button class="btn" id="feedBtn" title="먹이주기">
-                🍖
-                <span class="btn-label">먹이</span>
-            </button>
-            <button class="btn" id="playBtn" title="놀아주기">
-                ⚽
-                <span class="btn-label">놀기</span>
-            </button>
-            <button class="btn" id="sleepBtn" title="재우기">
-                😴
-                <span class="btn-label">수면</span>
-            </button>
-            <button class="btn" id="cleanBtn" title="청소하기">
-                🧹
-                <span class="btn-label">청소</span>
-            </button>
+            <!-- 버튼 -->
+            <div class="buttons">
+                <button class="btn" id="btnA" title="선택">A</button>
+                <button class="btn" id="btnB" title="실행">B</button>
+                <button class="btn" id="btnC" title="취소">C</button>
+            </div>
         </div>
     </div>
 
-    <div class="footer-controls">
-        <button class="footer-btn" id="resetBtn">🔄 리셋</button>
-        <button class="footer-btn" id="statsBtn">📊 통계</button>
+    <!-- 하단 컨트롤 -->
+    <div class="bottom-controls">
+        <button class="control-btn" id="btnFeed">🍖 먹이</button>
+        <button class="control-btn" id="btnPlay">⚽ 놀기</button>
+        <button class="control-btn" id="btnSleep">😴 수면</button>
+        <button class="control-btn" id="btnClean">🧹 청소</button>
+        <button class="control-btn" id="btnReset">🔄 리셋</button>
     </div>
 
     <!-- 사이드 광고 -->
-    <div class="sidebar-ad">
-        <span>광고 영역<br>(160x600)</span>
-    </div>
+    <div class="sidebar-ad">광고 영역<br>(160x600)</div>
 
-    <!-- 이름 입력 모달 -->
+    <!-- 이름 모달 -->
     <div class="modal" id="nameModal">
         <div class="modal-content">
-            <h2>🥚 새로운 펫이 태어났어요!</h2>
-            <p style="margin-bottom: 15px;">이름을 지어주세요:</p>
-            <input type="text" id="nameInput" placeholder="펫 이름" maxlength="10">
-            <button class="modal-btn" id="nameSubmit">시작하기!</button>
-        </div>
-    </div>
-
-    <!-- 통계 모달 -->
-    <div class="modal" id="statsModal">
-        <div class="modal-content">
-            <h2>📊 펫 통계</h2>
-            <div id="statsContent" style="text-align: left; margin: 20px 0;">
-                <p>🎂 나이: <span id="statAge">0</span>일</p>
-                <p>🏆 레벨: <span id="statLevel">1</span></p>
-                <p>🍖 먹이 횟수: <span id="statFeed">0</span></p>
-                <p>⚽ 놀이 횟수: <span id="statPlay">0</span></p>
-                <p>😴 수면 횟수: <span id="statSleep">0</span></p>
-            </div>
-            <button class="modal-btn" id="closeStats">닫기</button>
+            <h2>🥚 새 펫이 태어났어요!</h2>
+            <input type="text" id="nameInput" placeholder="이름을 지어주세요" maxlength="8">
+            <button class="modal-btn" id="nameSubmit">시작!</button>
         </div>
     </div>
 
     <script>
+        // 픽셀 아트 패턴 (16x16)
+        const petSprites = {
+            // 기본 상태
+            normal: [
+                '0000000000000000',
+                '0000011111100000',
+                '0000111111110000',
+                '0001111111111000',
+                '0011111111111100',
+                '0011100110011100',
+                '0011100110011100',
+                '0011111111111100',
+                '0011111111111100',
+                '0001111001111000',
+                '0001111111111000',
+                '0000111111110000',
+                '0000011111100000',
+                '0000001111000000',
+                '0000011001100000',
+                '0000000000000000'
+            ],
+            // 행복한 상태
+            happy: [
+                '0000000000000000',
+                '0000011111100000',
+                '0000111111110000',
+                '0001111111111000',
+                '0011111111111100',
+                '0011110110111100',
+                '0011100000011100',
+                '0011111111111100',
+                '0011110000111100',
+                '0001111111111000',
+                '0001111111111000',
+                '0000111111110000',
+                '0000011111100000',
+                '0000001111000000',
+                '0000011001100000',
+                '0000000000000000'
+            ],
+            // 슬픈 상태
+            sad: [
+                '0000000000000000',
+                '0000011111100000',
+                '0000111111110000',
+                '0001111111111000',
+                '0011111111111100',
+                '0011100110011100',
+                '0011110110111100',
+                '0011111111111100',
+                '0011111111111100',
+                '0001110000111000',
+                '0001111111111000',
+                '0000111111110000',
+                '0000011111100000',
+                '0000001111000000',
+                '0000011001100000',
+                '0000000000000000'
+            ],
+            // 수면 상태
+            sleeping: [
+                '0000000000000000',
+                '0000011111100000',
+                '0000111111110000',
+                '0001111111111000',
+                '0011111111111100',
+                '0011111111111100',
+                '0011110110111100',
+                '0011111111111100',
+                '0011111111111100',
+                '0001111111111000',
+                '0001111111111000',
+                '0000111111110000',
+                '0000011111100000',
+                '0000001111000000',
+                '0000000000000000',
+                '0000000000000000'
+            ],
+            // 먹는 상태
+            eating: [
+                '0000000000000000',
+                '0000011111100000',
+                '0000111111110000',
+                '0001111111111000',
+                '0011111111111100',
+                '0011100110011100',
+                '0011100110011100',
+                '0011111111111100',
+                '0011111001111100',
+                '0001111111111000',
+                '0001111111111000',
+                '0000111111110000',
+                '0000011111100000',
+                '0000001111000000',
+                '0000011001100000',
+                '0000000000000000'
+            ],
+            // 알 상태
+            egg: [
+                '0000000000000000',
+                '0000000000000000',
+                '0000001111000000',
+                '0000011111100000',
+                '0000111111110000',
+                '0001111111111000',
+                '0001111111111000',
+                '0011111111111100',
+                '0011111111111100',
+                '0011111111111100',
+                '0011111111111100',
+                '0001111111111000',
+                '0001111111111000',
+                '0000111111110000',
+                '0000011111100000',
+                '0000000000000000'
+            ],
+            // 죽음
+            ghost: [
+                '0000000000000000',
+                '0000011111100000',
+                '0000111111110000',
+                '0001111111111000',
+                '0001100110011000',
+                '0001100110011000',
+                '0001111111111000',
+                '0001111111111000',
+                '0001111001111000',
+                '0001111111111000',
+                '0001111111111000',
+                '0001101101101000',
+                '0001010101010000',
+                '0000000000000000',
+                '0000000000000000',
+                '0000000000000000'
+            ]
+        };
+
         // 게임 상태
-        let gameState = {
+        let game = {
             name: '',
             hunger: 100,
             happiness: 100,
@@ -737,429 +872,308 @@
             level: 1,
             exp: 0,
             maxExp: 100,
-            age: 0,
             isSleeping: false,
             isDead: false,
             poopCount: 0,
-            stats: {
-                feedCount: 0,
-                playCount: 0,
-                sleepCount: 0
-            },
+            cover: 'pink',
             createdAt: null,
             lastUpdate: null
         };
 
-        // DOM 요소
-        const elements = {
-            petName: document.getElementById('petName'),
-            level: document.getElementById('level'),
-            exp: document.getElementById('exp'),
-            maxExp: document.getElementById('maxExp'),
-            hungerBar: document.getElementById('hungerBar'),
-            happyBar: document.getElementById('happyBar'),
-            energyBar: document.getElementById('energyBar'),
-            cleanBar: document.getElementById('cleanBar'),
-            message: document.getElementById('message'),
-            pet: document.getElementById('pet'),
-            eyeLeft: document.getElementById('eyeLeft'),
-            eyeRight: document.getElementById('eyeRight'),
-            mouth: document.getElementById('mouth'),
-            gameContent: document.getElementById('gameContent'),
-            deathScreen: document.getElementById('deathScreen'),
-            screen: document.getElementById('screen'),
-            poop1: document.getElementById('poop1'),
-            poop2: document.getElementById('poop2'),
-            nameModal: document.getElementById('nameModal'),
-            statsModal: document.getElementById('statsModal'),
-            nameInput: document.getElementById('nameInput'),
-            feedBtn: document.getElementById('feedBtn'),
-            playBtn: document.getElementById('playBtn'),
-            sleepBtn: document.getElementById('sleepBtn'),
-            cleanBtn: document.getElementById('cleanBtn')
-        };
+        // DOM
+        const $ = id => document.getElementById(id);
+        const pixelPetEl = $('pixelPet');
+        const deviceBody = $('deviceBody');
+        const screen = $('screen');
 
-        // 메시지 배열
-        const messages = {
-            hungry: ['배고파...', '밥 줘!', '꼬르륵...', '맛있는 거 먹고 싶어!'],
-            sad: ['심심해...', '나랑 놀아줘!', '외로워...', '재미없어...'],
-            tired: ['졸려...', '피곤해...', '자고 싶어...', 'zzZ...'],
-            dirty: ['지저분해...', '청소해줘!', '더러워...', '씻고 싶어...'],
-            happy: ['행복해!', '좋아좋아!', '최고야!', '사랑해!', '고마워!'],
-            eating: ['냠냠냠!', '맛있다!', '더 줘!', '배부르다~'],
-            playing: ['신난다!', '야호!', '재밌어!', '더 놀자!'],
-            sleeping: ['쿨쿨...', 'zzZ...', '좋은 꿈...'],
-            wakeUp: ['잘 잤다!', '개운해!', '좋은 아침!'],
-            levelUp: ['레벨업!', '성장했어!', '더 강해졌어!']
-        };
-
-        // 랜덤 메시지
-        function getRandomMessage(type) {
-            const arr = messages[type];
-            return arr[Math.floor(Math.random() * arr.length)];
-        }
-
-        // 이펙트 표시
-        function showEffect(emoji) {
-            const effect = document.createElement('div');
-            effect.className = 'effect';
-            effect.textContent = emoji;
-            effect.style.left = `${Math.random() * 200 + 40}px`;
-            effect.style.top = `${Math.random() * 100 + 80}px`;
-            elements.screen.appendChild(effect);
-            setTimeout(() => effect.remove(), 800);
+        // 픽셀 펫 렌더링
+        function renderPet(spriteName) {
+            const sprite = petSprites[spriteName] || petSprites.normal;
+            pixelPetEl.innerHTML = '';
+            
+            for (let row of sprite) {
+                for (let col of row) {
+                    const pixel = document.createElement('div');
+                    pixel.className = col === '1' ? 'pixel on' : 'pixel';
+                    pixelPetEl.appendChild(pixel);
+                }
+            }
         }
 
         // UI 업데이트
         function updateUI() {
-            elements.petName.textContent = gameState.name || '???';
-            elements.level.textContent = gameState.level;
-            elements.exp.textContent = gameState.exp;
-            elements.maxExp.textContent = gameState.maxExp;
+            // 스탯 바
+            $('barHunger').style.width = game.hunger + '%';
+            $('barHappy').style.width = game.happiness + '%';
+            $('barEnergy').style.width = game.energy + '%';
+            $('barClean').style.width = game.cleanliness + '%';
 
-            // 스탯 바 업데이트
-            updateStatBar(elements.hungerBar, gameState.hunger);
-            updateStatBar(elements.happyBar, gameState.happiness);
-            updateStatBar(elements.energyBar, gameState.energy);
-            updateStatBar(elements.cleanBar, gameState.cleanliness);
+            // 아이콘 활성화 (낮은 스탯 표시)
+            $('iconHungry').classList.toggle('active', game.hunger < 40);
+            $('iconHappy').classList.toggle('active', game.happiness < 40);
+            $('iconPlay').classList.toggle('active', game.energy < 40);
+            $('iconMed').classList.toggle('active', game.cleanliness < 40);
 
-            // 똥 표시
-            elements.poop1.style.display = gameState.poopCount >= 1 ? 'block' : 'none';
-            elements.poop2.style.display = gameState.poopCount >= 2 ? 'block' : 'none';
+            // 똥
+            $('poop1').style.display = game.poopCount >= 1 ? 'block' : 'none';
+            $('poop2').style.display = game.poopCount >= 2 ? 'block' : 'none';
 
-            // 펫 상태에 따른 표정
-            updatePetExpression();
+            // 펫 정보
+            $('petInfo').textContent = `Lv.${game.level}`;
+
+            // ZZZ
+            $('zzzDisplay').classList.toggle('active', game.isSleeping);
+
+            // 펫 상태에 따른 스프라이트
+            updatePetSprite();
         }
 
-        function updateStatBar(bar, value) {
-            bar.style.width = `${value}%`;
-            if (value <= 20) {
-                bar.classList.add('low');
-            } else {
-                bar.classList.remove('low');
-            }
-        }
-
-        function updatePetExpression() {
-            // 죽음 체크
-            if (gameState.isDead) {
-                elements.gameContent.classList.add('hidden');
-                elements.deathScreen.classList.add('active');
+        function updatePetSprite() {
+            if (game.isDead) {
+                renderPet('ghost');
+                $('deathOverlay').classList.add('active');
+                $('deathName').textContent = game.name;
                 return;
             }
 
-            // 수면 상태
-            if (gameState.isSleeping) {
-                elements.pet.className = 'pet sleeping';
-                elements.eyeLeft.classList.add('closed');
-                elements.eyeRight.classList.add('closed');
-                elements.mouth.className = 'pet-mouth';
+            $('deathOverlay').classList.remove('active');
+            pixelPetEl.className = 'pixel-pet';
+
+            if (game.isSleeping) {
+                renderPet('sleeping');
+                pixelPetEl.classList.add('sleeping');
                 return;
             }
 
-            // 기본 상태 복원
-            elements.eyeLeft.classList.remove('closed');
-            elements.eyeRight.classList.remove('closed');
-            elements.pet.className = 'pet';
-
-            // 스탯에 따른 표정
-            const avgStat = (gameState.hunger + gameState.happiness + gameState.energy + gameState.cleanliness) / 4;
+            const avg = (game.hunger + game.happiness + game.energy + game.cleanliness) / 4;
             
-            if (avgStat < 30) {
-                elements.mouth.className = 'pet-mouth sad';
-            } else if (avgStat > 70) {
-                elements.mouth.className = 'pet-mouth happy';
+            if (avg < 30) {
+                renderPet('sad');
+            } else if (avg > 70) {
+                renderPet('happy');
             } else {
-                elements.mouth.className = 'pet-mouth';
+                renderPet('normal');
             }
         }
 
-        // 메시지 업데이트
-        function updateMessage() {
-            if (gameState.isDead || gameState.isSleeping) return;
-
-            const lowest = Math.min(gameState.hunger, gameState.happiness, gameState.energy, gameState.cleanliness);
-            
-            if (lowest === gameState.hunger && gameState.hunger < 40) {
-                elements.message.textContent = getRandomMessage('hungry');
-            } else if (lowest === gameState.happiness && gameState.happiness < 40) {
-                elements.message.textContent = getRandomMessage('sad');
-            } else if (lowest === gameState.energy && gameState.energy < 40) {
-                elements.message.textContent = getRandomMessage('tired');
-            } else if (lowest === gameState.cleanliness && gameState.cleanliness < 40) {
-                elements.message.textContent = getRandomMessage('dirty');
-            } else if (lowest > 60) {
-                elements.message.textContent = getRandomMessage('happy');
-            }
+        // 메시지 표시
+        function showMessage(text) {
+            const msg = $('message');
+            msg.textContent = text;
+            setTimeout(() => msg.textContent = '', 2000);
         }
 
-        // 경험치 & 레벨업
+        // 이펙트
+        function showEffect(emoji) {
+            const effect = document.createElement('div');
+            effect.className = 'action-effect';
+            effect.textContent = emoji;
+            effect.style.left = Math.random() * 100 + 40 + 'px';
+            effect.style.top = Math.random() * 50 + 40 + 'px';
+            screen.appendChild(effect);
+            setTimeout(() => effect.remove(), 600);
+        }
+
+        // 경험치
         function addExp(amount) {
-            gameState.exp += amount;
-            while (gameState.exp >= gameState.maxExp) {
-                gameState.exp -= gameState.maxExp;
-                gameState.level++;
-                gameState.maxExp = Math.floor(gameState.maxExp * 1.5);
+            game.exp += amount;
+            while (game.exp >= game.maxExp) {
+                game.exp -= game.maxExp;
+                game.level++;
+                game.maxExp = Math.floor(game.maxExp * 1.5);
+                showMessage('LEVEL UP!');
                 showEffect('⭐');
-                elements.message.textContent = getRandomMessage('levelUp');
             }
         }
 
-        // 액션: 먹이주기
+        // 액션들
         function feed() {
-            if (gameState.isDead || gameState.isSleeping) return;
-            
-            gameState.hunger = Math.min(100, gameState.hunger + 30);
-            gameState.cleanliness = Math.max(0, gameState.cleanliness - 5);
-            gameState.stats.feedCount++;
+            if (game.isDead || game.isSleeping) return;
+            game.hunger = Math.min(100, game.hunger + 30);
+            game.cleanliness = Math.max(0, game.cleanliness - 5);
             addExp(10);
             
-            elements.pet.className = 'pet eating';
-            elements.mouth.className = 'pet-mouth eating';
-            elements.message.textContent = getRandomMessage('eating');
+            renderPet('eating');
+            pixelPetEl.classList.add('eating');
+            showMessage('냠냠!');
             showEffect('🍖');
             
-            setTimeout(() => {
-                elements.pet.className = 'pet';
-                elements.mouth.className = 'pet-mouth';
-                updatePetExpression();
-            }, 1500);
-
-            // 일정 확률로 똥 생성
-            if (Math.random() < 0.3 && gameState.poopCount < 2) {
-                gameState.poopCount++;
-            }
-
+            if (Math.random() < 0.3 && game.poopCount < 2) game.poopCount++;
+            
+            setTimeout(updatePetSprite, 1500);
             updateUI();
             saveGame();
         }
 
-        // 액션: 놀아주기
         function play() {
-            if (gameState.isDead || gameState.isSleeping) return;
-            if (gameState.energy < 20) {
-                elements.message.textContent = '너무 피곤해서 놀 수 없어...';
+            if (game.isDead || game.isSleeping) return;
+            if (game.energy < 20) {
+                showMessage('피곤해...');
                 return;
             }
             
-            gameState.happiness = Math.min(100, gameState.happiness + 25);
-            gameState.energy = Math.max(0, gameState.energy - 15);
-            gameState.hunger = Math.max(0, gameState.hunger - 10);
-            gameState.stats.playCount++;
+            game.happiness = Math.min(100, game.happiness + 25);
+            game.energy = Math.max(0, game.energy - 15);
+            game.hunger = Math.max(0, game.hunger - 10);
             addExp(15);
             
-            elements.pet.className = 'pet playing';
-            elements.message.textContent = getRandomMessage('playing');
+            renderPet('happy');
+            pixelPetEl.classList.add('playing');
+            showMessage('신난다!');
             showEffect('⚽');
-            showEffect('🎉');
             
-            setTimeout(() => {
-                elements.pet.className = 'pet';
-                updatePetExpression();
-            }, 2000);
-
+            setTimeout(updatePetSprite, 2000);
             updateUI();
             saveGame();
         }
 
-        // 액션: 재우기
         function sleep() {
-            if (gameState.isDead) return;
+            if (game.isDead) return;
             
-            if (gameState.isSleeping) {
-                // 깨우기
-                gameState.isSleeping = false;
-                elements.message.textContent = getRandomMessage('wakeUp');
-                elements.sleepBtn.querySelector('.btn-label').textContent = '수면';
-            } else {
-                // 재우기
-                gameState.isSleeping = true;
-                gameState.stats.sleepCount++;
-                elements.message.textContent = getRandomMessage('sleeping');
-                elements.sleepBtn.querySelector('.btn-label').textContent = '깨움';
-            }
-            
-            updatePetExpression();
+            game.isSleeping = !game.isSleeping;
+            showMessage(game.isSleeping ? 'zzZ...' : '잘잤다!');
+            updateUI();
             saveGame();
         }
 
-        // 액션: 청소하기
         function clean() {
-            if (gameState.isDead || gameState.isSleeping) return;
+            if (game.isDead || game.isSleeping) return;
             
-            gameState.cleanliness = Math.min(100, gameState.cleanliness + 40);
-            gameState.poopCount = 0;
+            game.cleanliness = Math.min(100, game.cleanliness + 40);
+            game.poopCount = 0;
             addExp(5);
             
-            elements.message.textContent = '깨끗해졌어!';
+            showMessage('깨끗!');
             showEffect('✨');
-            
             updateUI();
             saveGame();
         }
 
-        // 게임 틱 (시간 경과)
+        // 게임 틱
         function gameTick() {
-            if (gameState.isDead) return;
+            if (game.isDead) return;
             
-            if (gameState.isSleeping) {
-                // 수면 중에는 에너지 회복
-                gameState.energy = Math.min(100, gameState.energy + 3);
-                gameState.hunger = Math.max(0, gameState.hunger - 1);
+            if (game.isSleeping) {
+                game.energy = Math.min(100, game.energy + 3);
+                game.hunger = Math.max(0, game.hunger - 1);
             } else {
-                // 일반 상태
-                gameState.hunger = Math.max(0, gameState.hunger - 2);
-                gameState.happiness = Math.max(0, gameState.happiness - 1.5);
-                gameState.energy = Math.max(0, gameState.energy - 1);
-                gameState.cleanliness = Math.max(0, gameState.cleanliness - 1);
+                game.hunger = Math.max(0, game.hunger - 2);
+                game.happiness = Math.max(0, game.happiness - 1.5);
+                game.energy = Math.max(0, game.energy - 1);
+                game.cleanliness = Math.max(0, game.cleanliness - 1);
             }
 
-            // 랜덤 똥 생성
-            if (!gameState.isSleeping && Math.random() < 0.05 && gameState.poopCount < 2) {
-                gameState.poopCount++;
-                gameState.cleanliness = Math.max(0, gameState.cleanliness - 10);
+            if (!game.isSleeping && Math.random() < 0.05 && game.poopCount < 2) {
+                game.poopCount++;
+                game.cleanliness = Math.max(0, game.cleanliness - 10);
             }
 
-            // 사망 체크
-            if (gameState.hunger <= 0 || gameState.happiness <= 0) {
-                gameState.isDead = true;
+            if (game.hunger <= 0 || game.happiness <= 0) {
+                game.isDead = true;
             }
 
             updateUI();
-            updateMessage();
             saveGame();
         }
 
-        // 저장
-        function saveGame() {
-            gameState.lastUpdate = Date.now();
-            localStorage.setItem('tamagochi_save', JSON.stringify(gameState));
+        // 커버 변경
+        function changeCover(cover) {
+            game.cover = cover;
+            deviceBody.className = 'device-body ' + cover;
+            document.querySelectorAll('.cover-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.cover === cover);
+            });
+            saveGame();
         }
 
-        // 불러오기
+        // 저장/불러오기
+        function saveGame() {
+            game.lastUpdate = Date.now();
+            localStorage.setItem('tamagochi_v2', JSON.stringify(game));
+        }
+
         function loadGame() {
-            const saved = localStorage.getItem('tamagochi_save');
+            const saved = localStorage.getItem('tamagochi_v2');
             if (saved) {
                 const parsed = JSON.parse(saved);
-                gameState = { ...gameState, ...parsed };
+                game = { ...game, ...parsed };
                 
-                // 오프라인 시간 계산
-                if (gameState.lastUpdate) {
-                    const offlineTime = Date.now() - gameState.lastUpdate;
-                    const offlineTicks = Math.floor(offlineTime / 5000);
-                    
-                    // 최대 100틱까지만 적용 (너무 오래 방치하면 손실 제한)
-                    const ticksToApply = Math.min(offlineTicks, 100);
-                    
-                    for (let i = 0; i < ticksToApply; i++) {
-                        if (!gameState.isDead) {
-                            gameState.hunger = Math.max(0, gameState.hunger - 1);
-                            gameState.happiness = Math.max(0, gameState.happiness - 0.5);
-                            gameState.energy = Math.max(0, gameState.energy - 0.3);
+                // 오프라인 시간
+                if (game.lastUpdate) {
+                    const offline = Math.min(Math.floor((Date.now() - game.lastUpdate) / 5000), 100);
+                    for (let i = 0; i < offline; i++) {
+                        if (!game.isDead) {
+                            game.hunger = Math.max(0, game.hunger - 1);
+                            game.happiness = Math.max(0, game.happiness - 0.5);
                         }
                     }
-                    
-                    if (gameState.hunger <= 0 || gameState.happiness <= 0) {
-                        gameState.isDead = true;
-                    }
+                    if (game.hunger <= 0 || game.happiness <= 0) game.isDead = true;
                 }
-
-                // 나이 계산
-                if (gameState.createdAt) {
-                    gameState.age = Math.floor((Date.now() - gameState.createdAt) / (1000 * 60 * 60 * 24));
-                }
-
-                updateUI();
+                
+                changeCover(game.cover || 'pink');
                 return true;
             }
             return false;
         }
 
-        // 리셋
         function resetGame() {
-            if (confirm('정말 리셋할까요? 모든 데이터가 삭제됩니다.')) {
-                localStorage.removeItem('tamagochi_save');
-                gameState = {
-                    name: '',
-                    hunger: 100,
-                    happiness: 100,
-                    energy: 100,
-                    cleanliness: 100,
-                    level: 1,
-                    exp: 0,
-                    maxExp: 100,
-                    age: 0,
-                    isSleeping: false,
-                    isDead: false,
-                    poopCount: 0,
-                    stats: {
-                        feedCount: 0,
-                        playCount: 0,
-                        sleepCount: 0
-                    },
-                    createdAt: null,
-                    lastUpdate: null
-                };
-                elements.gameContent.classList.remove('hidden');
-                elements.deathScreen.classList.remove('active');
-                elements.nameModal.classList.add('active');
-                updateUI();
-            }
+            if (!confirm('리셋할까요?')) return;
+            localStorage.removeItem('tamagochi_v2');
+            game = {
+                name: '', hunger: 100, happiness: 100, energy: 100, cleanliness: 100,
+                level: 1, exp: 0, maxExp: 100, isSleeping: false, isDead: false,
+                poopCount: 0, cover: 'pink', createdAt: null, lastUpdate: null
+            };
+            $('deathOverlay').classList.remove('active');
+            $('nameModal').classList.add('active');
+            changeCover('pink');
+            updateUI();
         }
 
-        // 통계 표시
-        function showStats() {
-            document.getElementById('statAge').textContent = gameState.age;
-            document.getElementById('statLevel').textContent = gameState.level;
-            document.getElementById('statFeed').textContent = gameState.stats.feedCount;
-            document.getElementById('statPlay').textContent = gameState.stats.playCount;
-            document.getElementById('statSleep').textContent = gameState.stats.sleepCount;
-            elements.statsModal.classList.add('active');
-        }
+        // 이벤트
+        $('btnFeed').onclick = feed;
+        $('btnPlay').onclick = play;
+        $('btnSleep').onclick = sleep;
+        $('btnClean').onclick = clean;
+        $('btnReset').onclick = resetGame;
 
-        // 이벤트 리스너
-        elements.feedBtn.addEventListener('click', feed);
-        elements.playBtn.addEventListener('click', play);
-        elements.sleepBtn.addEventListener('click', sleep);
-        elements.cleanBtn.addEventListener('click', clean);
-        document.getElementById('resetBtn').addEventListener('click', resetGame);
-        document.getElementById('statsBtn').addEventListener('click', showStats);
-        document.getElementById('closeStats').addEventListener('click', () => {
-            elements.statsModal.classList.remove('active');
+        $('btnA').onclick = feed;
+        $('btnB').onclick = play;
+        $('btnC').onclick = sleep;
+
+        document.querySelectorAll('.cover-btn').forEach(btn => {
+            btn.onclick = () => changeCover(btn.dataset.cover);
         });
 
-        // 이름 입력
-        document.getElementById('nameSubmit').addEventListener('click', () => {
-            const name = elements.nameInput.value.trim();
+        $('nameSubmit').onclick = () => {
+            const name = $('nameInput').value.trim();
             if (name) {
-                gameState.name = name;
-                gameState.createdAt = Date.now();
-                elements.nameModal.classList.remove('active');
-                updateUI();
+                game.name = name;
+                game.createdAt = Date.now();
+                $('nameModal').classList.remove('active');
+                renderPet('egg');
+                setTimeout(() => {
+                    showMessage(name + ' 탄생!');
+                    updatePetSprite();
+                }, 1500);
                 saveGame();
-            } else {
-                elements.nameInput.focus();
             }
-        });
+        };
 
-        elements.nameInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                document.getElementById('nameSubmit').click();
-            }
-        });
+        $('nameInput').onkeypress = e => {
+            if (e.key === 'Enter') $('nameSubmit').click();
+        };
 
         // 초기화
         function init() {
-            if (!loadGame() || !gameState.name) {
-                elements.nameModal.classList.add('active');
+            if (!loadGame() || !game.name) {
+                $('nameModal').classList.add('active');
+                renderPet('egg');
+            } else {
+                updateUI();
             }
-            updateUI();
             
-            // 게임 틱 시작 (5초마다)
             setInterval(gameTick, 5000);
-            
-            // 메시지 업데이트 (10초마다)
-            setInterval(updateMessage, 10000);
         }
 
         init();

@@ -27,14 +27,6 @@
             align-items: center;
             padding: 20px;
         }
-        .ad-banner {
-            width: 100%; max-width: 728px; height: 90px;
-            background: rgba(255,255,255,0.1);
-            border: 2px dashed rgba(255,255,255,0.3);
-            display: flex; align-items: center; justify-content: center;
-            color: rgba(255,255,255,0.5); font-size: 14px;
-            margin-bottom: 20px; border-radius: 8px;
-        }
         .game-title {
             font-size: 2rem; color: white;
             text-shadow: 3px 3px 0 rgba(0,0,0,0.3);
@@ -57,6 +49,15 @@
         .cover-btn.mint { background: linear-gradient(135deg, #84fab0, #8fd3f4); }
         .cover-btn.orange { background: linear-gradient(135deg, #fa709a, #fee140); }
         .cover-btn.glitter { background: linear-gradient(135deg, #f093fb, #f5576c); }
+
+        /* Main container - device + stats panel */
+        .main-container {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
 
         .device {
             position: relative; width: 320px; height: 400px;
@@ -92,9 +93,7 @@
             border-radius: 8px; position: relative; overflow: hidden;
             transition: filter 0.5s;
         }
-        .screen.lights-off {
-            filter: brightness(0.3);
-        }
+        .screen.lights-off { filter: brightness(0.3); }
         .screen::after {
             content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background: repeating-linear-gradient(0deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 2px);
@@ -178,6 +177,64 @@
         }
         .btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #ccc; }
 
+        /* Stats Panel */
+        .stats-panel {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            min-width: 200px;
+            color: white;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .stats-panel h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            text-align: center;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 10px;
+        }
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 13px;
+        }
+        .stat-label {
+            opacity: 0.8;
+        }
+        .stat-value {
+            font-weight: bold;
+        }
+        .stat-bar-container {
+            width: 100%;
+            margin-top: 5px;
+        }
+        .stat-bar-outer {
+            width: 100%;
+            height: 8px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .stat-bar-inner {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        .stat-bar-inner.hunger { background: linear-gradient(90deg, #ff6b6b, #ffa502); }
+        .stat-bar-inner.happy { background: linear-gradient(90deg, #ffd93d, #6bcb77); }
+        .stat-bar-inner.energy { background: linear-gradient(90deg, #4facfe, #00f2fe); }
+        .stat-bar-inner.clean { background: linear-gradient(90deg, #a8edea, #fed6e3); }
+        .stat-bar-inner.exp { background: linear-gradient(90deg, #f093fb, #f5576c); }
+
+        .stat-divider {
+            border: none;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            margin: 15px 0;
+        }
+
         .bottom-controls {
             display: flex; gap: 8px; margin-top: 20px; flex-wrap: wrap; justify-content: center;
         }
@@ -213,7 +270,6 @@
             cursor: pointer; margin: 5px;
         }
         .modal-btn:hover { transform: scale(1.05); }
-        .modal-btn.secondary { background: #ccc; color: #333; }
 
         .death-overlay {
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
@@ -224,7 +280,6 @@
         .death-overlay.active { display: flex; }
         .death-text { font-size: 10px; color: var(--screen-pixel); text-align: center; }
 
-        /* Mini Game */
         .game-overlay {
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background: var(--screen-bg); display: none;
@@ -259,14 +314,10 @@
             100% { opacity: 0; transform: translateY(-30px) scale(1.3); }
         }
 
-        .sidebar-ad {
-            position: fixed; right: 20px; top: 50%; transform: translateY(-50%);
-            width: 160px; height: 600px;
-            background: rgba(255,255,255,0.1); border: 2px dashed rgba(255,255,255,0.3);
-            display: flex; align-items: center; justify-content: center;
-            color: rgba(255,255,255,0.5); font-size: 11px; text-align: center; border-radius: 8px;
+        @media (max-width: 700px) {
+            .main-container { flex-direction: column; align-items: center; }
+            .stats-panel { width: 100%; max-width: 320px; margin-top: 20px; }
         }
-        @media (max-width: 1200px) { .sidebar-ad { display: none; } }
         @media (max-width: 400px) {
             .device { width: 280px; height: 350px; }
             .screen-frame { width: 150px; height: 130px; top: 60px; }
@@ -276,7 +327,6 @@
     </style>
 </head>
 <body>
-    <div class="ad-banner">AD SPACE (728x90)</div>
     <h1 class="game-title">TOMO</h1>
 
     <div class="cover-selector">
@@ -288,50 +338,128 @@
         <button class="cover-btn glitter" data-cover="glitter"></button>
     </div>
 
-    <div class="device">
-        <div class="chain-loop"></div>
-        <div class="device-body pink" id="deviceBody">
-            <div class="screen-frame">
-                <div class="screen" id="screen">
-                    <div class="screen-icons">
-                        <div class="screen-icon" id="iconHungry">🍴</div>
-                        <div class="screen-icon" id="iconHappy">💡</div>
-                        <div class="screen-icon" id="iconSick">💀</div>
-                        <div class="screen-icon" id="iconPoop">💩</div>
-                    </div>
-                    <div class="message-bubble" id="message"></div>
-                    <div class="pixel-pet-container">
-                        <div class="pixel-pet" id="pixelPet"></div>
-                    </div>
-                    <div class="zzz-display" id="zzzDisplay">Z z z</div>
-                    <div class="poop-display left" id="poop1" style="display:none;">●~</div>
-                    <div class="poop-display right" id="poop2" style="display:none;">●~</div>
-                    <div class="stats-display">
-                        <div class="mini-stat"><div class="mini-stat-bar"><div class="mini-stat-fill" id="barHunger"></div></div></div>
-                        <div class="mini-stat"><div class="mini-stat-bar"><div class="mini-stat-fill" id="barHappy"></div></div></div>
-                        <div class="mini-stat"><div class="mini-stat-bar"><div class="mini-stat-fill" id="barEnergy"></div></div></div>
-                        <div class="mini-stat"><div class="mini-stat-bar"><div class="mini-stat-fill" id="barClean"></div></div></div>
-                    </div>
-                    <div class="pet-info" id="petInfo"></div>
-                    <div class="death-overlay" id="deathOverlay">
-                        <div class="death-text">💀<br>R.I.P<br><span id="deathName"></span></div>
-                    </div>
-                    <!-- Mini Game Overlay -->
-                    <div class="game-overlay" id="gameOverlay">
-                        <div class="game-title-small">JUMP GAME</div>
-                        <div class="game-area" id="gameArea">
-                            <div class="player" id="player"></div>
-                            <div class="obstacle" id="obstacle"></div>
+    <div class="main-container">
+        <div class="device">
+            <div class="chain-loop"></div>
+            <div class="device-body pink" id="deviceBody">
+                <div class="screen-frame">
+                    <div class="screen" id="screen">
+                        <div class="screen-icons">
+                            <div class="screen-icon" id="iconHungry">🍴</div>
+                            <div class="screen-icon" id="iconHappy">💡</div>
+                            <div class="screen-icon" id="iconSick">💀</div>
+                            <div class="screen-icon" id="iconPoop">💩</div>
                         </div>
-                        <div class="game-score">Score: <span id="gameScore">0</span></div>
-                        <div class="game-instruction">Press SPACE or tap to jump!</div>
+                        <div class="message-bubble" id="message"></div>
+                        <div class="pixel-pet-container">
+                            <div class="pixel-pet" id="pixelPet"></div>
+                        </div>
+                        <div class="zzz-display" id="zzzDisplay">Z z z</div>
+                        <div class="poop-display left" id="poop1" style="display:none;">●~</div>
+                        <div class="poop-display right" id="poop2" style="display:none;">●~</div>
+                        <div class="stats-display">
+                            <div class="mini-stat"><div class="mini-stat-bar"><div class="mini-stat-fill" id="barHunger"></div></div></div>
+                            <div class="mini-stat"><div class="mini-stat-bar"><div class="mini-stat-fill" id="barHappy"></div></div></div>
+                            <div class="mini-stat"><div class="mini-stat-bar"><div class="mini-stat-fill" id="barEnergy"></div></div></div>
+                            <div class="mini-stat"><div class="mini-stat-bar"><div class="mini-stat-fill" id="barClean"></div></div></div>
+                        </div>
+                        <div class="pet-info" id="petInfo"></div>
+                        <div class="death-overlay" id="deathOverlay">
+                            <div class="death-text">💀<br>R.I.P<br><span id="deathName"></span></div>
+                        </div>
+                        <div class="game-overlay" id="gameOverlay">
+                            <div class="game-title-small">JUMP GAME</div>
+                            <div class="game-area" id="gameArea">
+                                <div class="player" id="player"></div>
+                                <div class="obstacle" id="obstacle"></div>
+                            </div>
+                            <div class="game-score">Score: <span id="gameScore">0</span></div>
+                            <div class="game-instruction">Press SPACE or tap to jump!</div>
+                        </div>
                     </div>
                 </div>
+                <div class="buttons">
+                    <button class="btn" id="btnA">A</button>
+                    <button class="btn" id="btnB">B</button>
+                    <button class="btn" id="btnC">C</button>
+                </div>
             </div>
-            <div class="buttons">
-                <button class="btn" id="btnA">A</button>
-                <button class="btn" id="btnB">B</button>
-                <button class="btn" id="btnC">C</button>
+        </div>
+
+        <!-- Stats Panel -->
+        <div class="stats-panel">
+            <h3>📊 <span id="panelName">Tomo</span></h3>
+            
+            <div class="stat-row">
+                <span class="stat-label">Level</span>
+                <span class="stat-value"><span id="panelLevel">1</span> (<span id="panelStage">Baby</span>)</span>
+            </div>
+            
+            <div class="stat-bar-container">
+                <div class="stat-row" style="margin-bottom:3px">
+                    <span class="stat-label">EXP</span>
+                    <span class="stat-value"><span id="panelExp">0</span>/<span id="panelMaxExp">100</span></span>
+                </div>
+                <div class="stat-bar-outer">
+                    <div class="stat-bar-inner exp" id="panelExpBar" style="width:0%"></div>
+                </div>
+            </div>
+
+            <hr class="stat-divider">
+
+            <div class="stat-bar-container">
+                <div class="stat-row" style="margin-bottom:3px">
+                    <span class="stat-label">🍖 Hunger</span>
+                    <span class="stat-value"><span id="panelHunger">100</span>%</span>
+                </div>
+                <div class="stat-bar-outer">
+                    <div class="stat-bar-inner hunger" id="panelHungerBar" style="width:100%"></div>
+                </div>
+            </div>
+
+            <div class="stat-bar-container">
+                <div class="stat-row" style="margin-bottom:3px">
+                    <span class="stat-label">😊 Happiness</span>
+                    <span class="stat-value"><span id="panelHappy">100</span>%</span>
+                </div>
+                <div class="stat-bar-outer">
+                    <div class="stat-bar-inner happy" id="panelHappyBar" style="width:100%"></div>
+                </div>
+            </div>
+
+            <div class="stat-bar-container">
+                <div class="stat-row" style="margin-bottom:3px">
+                    <span class="stat-label">⚡ Energy</span>
+                    <span class="stat-value"><span id="panelEnergy">100</span>%</span>
+                </div>
+                <div class="stat-bar-outer">
+                    <div class="stat-bar-inner energy" id="panelEnergyBar" style="width:100%"></div>
+                </div>
+            </div>
+
+            <div class="stat-bar-container">
+                <div class="stat-row" style="margin-bottom:3px">
+                    <span class="stat-label">✨ Clean</span>
+                    <span class="stat-value"><span id="panelClean">100</span>%</span>
+                </div>
+                <div class="stat-bar-outer">
+                    <div class="stat-bar-inner clean" id="panelCleanBar" style="width:100%"></div>
+                </div>
+            </div>
+
+            <hr class="stat-divider">
+
+            <div class="stat-row">
+                <span class="stat-label">📅 Age</span>
+                <span class="stat-value"><span id="panelAge">0</span> days</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label">⚖️ Weight</span>
+                <span class="stat-value"><span id="panelWeight">5</span> kg</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label">🎓 Discipline</span>
+                <span class="stat-value"><span id="panelDisc">0</span>%</span>
             </div>
         </div>
     </div>
@@ -344,11 +472,8 @@
         <button class="control-btn" id="btnClean">🧹 Clean</button>
         <button class="control-btn" id="btnMed">💊 Med</button>
         <button class="control-btn" id="btnPraise">👍 Praise</button>
-        <button class="control-btn" id="btnStats">📊 Stats</button>
         <button class="control-btn" id="btnReset">🔄 Reset</button>
     </div>
-
-    <div class="sidebar-ad">AD SPACE<br>(160x600)</div>
 
     <!-- Name Modal -->
     <div class="modal" id="nameModal">
@@ -356,22 +481,6 @@
             <h2>🥚 A new pet is born!</h2>
             <input type="text" id="nameInput" placeholder="Name your pet" maxlength="8">
             <button class="modal-btn" id="nameSubmit">Start!</button>
-        </div>
-    </div>
-
-    <!-- Stats Modal -->
-    <div class="modal" id="statsModal">
-        <div class="modal-content">
-            <h2>📊 Pet Status</h2>
-            <p>Name: <span id="statName">-</span></p>
-            <p>Age: <span id="statAge">0</span> days</p>
-            <p>Weight: <span id="statWeight">5</span> kg</p>
-            <p>Level: <span id="statLevel">1</span> (<span id="statStage">Baby</span>)</p>
-            <p>Generation: <span id="statGen">1</span></p>
-            <p>Hunger: <span id="statHunger">100</span>%</p>
-            <p>Happiness: <span id="statHappy">100</span>%</p>
-            <p>Discipline: <span id="statDisc">0</span>%</p>
-            <button class="modal-btn" id="closeStats">Close</button>
         </div>
     </div>
 
@@ -386,7 +495,6 @@
     </div>
 
     <script>
-        // Evolution stages
         const evolutionStages = [
             { minLevel: 1, stage: 'baby', name: 'Baby' },
             { minLevel: 3, stage: 'child', name: 'Child' },
@@ -395,7 +503,6 @@
             { minLevel: 12, stage: 'special', name: 'Master' }
         ];
 
-        // Pixel sprites
         const petSprites = {
             baby_normal: ['0000000000000000','0000000000000000','0000000000000000','0000001111000000','0000011111100000','0000111111110000','0000110110110000','0000111111110000','0000111001110000','0000011111100000','0000001111000000','0000000110000000','0000000000000000','0000000000000000','0000000000000000','0000000000000000'],
             baby_happy: ['0000000000000000','0000000000000000','0000000000000000','0000001111000000','0000011111100000','0000111111110000','0000111011110000','0000111111110000','0000110000110000','0000011111100000','0000001111000000','0000000110000000','0000000000000000','0000000000000000','0000000000000000','0000000000000000'],
@@ -426,7 +533,6 @@
             ghost: ['0000000000000000','0000011111100000','0000111111110000','0001111111111000','0001100110011000','0001100110011000','0001111111111000','0001111111111000','0001111001111000','0001111111111000','0001111111111000','0001101101101000','0001010101010000','0000000000000000','0000000000000000','0000000000000000']
         };
 
-        // Game state
         let game = {
             name: '', hunger: 100, happiness: 100, energy: 100, cleanliness: 100,
             level: 1, exp: 0, maxExp: 100, age: 0, weight: 5, discipline: 0, generation: 1,
@@ -434,12 +540,9 @@
             poopCount: 0, cover: 'pink', createdAt: null, lastUpdate: null
         };
 
-        // DOM shortcuts
         const $ = id => document.getElementById(id);
         const pixelPetEl = $('pixelPet');
         const screen = $('screen');
-
-        // Mini game state
         let miniGame = { active: false, score: 0, obstacleInterval: null, jumping: false };
 
         function getEvolutionStage(level) {
@@ -481,6 +584,25 @@
             $('zzzDisplay').classList.toggle('active', game.isSleeping);
             screen.classList.toggle('lights-off', game.lightsOff);
 
+            // Update stats panel
+            $('panelName').textContent = game.name || 'Tomo';
+            $('panelLevel').textContent = game.level;
+            $('panelStage').textContent = stage.name;
+            $('panelExp').textContent = game.exp;
+            $('panelMaxExp').textContent = game.maxExp;
+            $('panelExpBar').style.width = (game.exp / game.maxExp * 100) + '%';
+            $('panelHunger').textContent = Math.round(game.hunger);
+            $('panelHungerBar').style.width = game.hunger + '%';
+            $('panelHappy').textContent = Math.round(game.happiness);
+            $('panelHappyBar').style.width = game.happiness + '%';
+            $('panelEnergy').textContent = Math.round(game.energy);
+            $('panelEnergyBar').style.width = game.energy + '%';
+            $('panelClean').textContent = Math.round(game.cleanliness);
+            $('panelCleanBar').style.width = game.cleanliness + '%';
+            $('panelAge').textContent = game.age;
+            $('panelWeight').textContent = game.weight;
+            $('panelDisc').textContent = Math.round(game.discipline);
+
             updatePetSprite();
         }
 
@@ -493,288 +615,142 @@
             }
             $('deathOverlay').classList.remove('active');
             pixelPetEl.className = 'pixel-pet';
-
             const stage = getEvolutionStage(game.level).stage;
-
-            if (game.isSick) {
-                renderPet(getSpriteKey(stage, 'sad'));
-                pixelPetEl.classList.add('sick');
-                return;
-            }
-            if (game.isSleeping) {
-                renderPet(getSpriteKey(stage, 'sleeping'));
-                pixelPetEl.classList.add('sleeping');
-                return;
-            }
+            if (game.isSick) { renderPet(getSpriteKey(stage, 'sad')); pixelPetEl.classList.add('sick'); return; }
+            if (game.isSleeping) { renderPet(getSpriteKey(stage, 'sleeping')); pixelPetEl.classList.add('sleeping'); return; }
             const avg = (game.hunger + game.happiness + game.energy + game.cleanliness) / 4;
             if (avg < 30) renderPet(getSpriteKey(stage, 'sad'));
             else if (avg > 70) renderPet(getSpriteKey(stage, 'happy'));
             else renderPet(getSpriteKey(stage, 'normal'));
         }
 
-        function showMessage(text) {
-            $('message').textContent = text;
-            setTimeout(() => $('message').textContent = '', 2500);
-        }
-
+        function showMessage(text) { $('message').textContent = text; setTimeout(() => $('message').textContent = '', 2500); }
         function showEffect(emoji) {
             const e = document.createElement('div');
-            e.className = 'action-effect';
-            e.textContent = emoji;
-            e.style.left = Math.random() * 100 + 30 + 'px';
-            e.style.top = Math.random() * 50 + 30 + 'px';
-            screen.appendChild(e);
-            setTimeout(() => e.remove(), 600);
+            e.className = 'action-effect'; e.textContent = emoji;
+            e.style.left = Math.random() * 100 + 30 + 'px'; e.style.top = Math.random() * 50 + 30 + 'px';
+            screen.appendChild(e); setTimeout(() => e.remove(), 600);
         }
 
         function addExp(amount) {
             const oldStage = getEvolutionStage(game.level);
             game.exp += amount;
             while (game.exp >= game.maxExp) {
-                game.exp -= game.maxExp;
-                game.level++;
-                game.maxExp = Math.floor(game.maxExp * 1.5);
+                game.exp -= game.maxExp; game.level++; game.maxExp = Math.floor(game.maxExp * 1.5);
                 const newStage = getEvolutionStage(game.level);
-                if (newStage.stage !== oldStage.stage) {
-                    showMessage('EVOLVED! → ' + newStage.name);
-                    showEffect('🌟'); showEffect('✨');
-                } else {
-                    showMessage('LEVEL UP!');
-                    showEffect('⭐');
-                }
+                if (newStage.stage !== oldStage.stage) { showMessage('EVOLVED! → ' + newStage.name); showEffect('🌟'); showEffect('✨'); }
+                else { showMessage('LEVEL UP!'); showEffect('⭐'); }
             }
         }
 
-        // Actions
         function feedFood() {
             if (game.isDead || game.isSleeping || game.isSick) return;
-            game.hunger = Math.min(100, game.hunger + 30);
-            game.weight = Math.min(99, game.weight + 1);
-            addExp(10);
+            game.hunger = Math.min(100, game.hunger + 30); game.weight = Math.min(99, game.weight + 1); addExp(10);
             const stage = getEvolutionStage(game.level).stage;
-            renderPet(getSpriteKey(stage, 'eating'));
-            pixelPetEl.classList.add('eating');
+            renderPet(getSpriteKey(stage, 'eating')); pixelPetEl.classList.add('eating');
             showMessage('Yummy!'); showEffect('🍖');
             if (Math.random() < 0.3 && game.poopCount < 2) game.poopCount++;
-            setTimeout(updatePetSprite, 1500);
-            updateUI(); saveGame();
+            setTimeout(updatePetSprite, 1500); updateUI(); saveGame();
         }
 
         function feedSnack() {
             if (game.isDead || game.isSleeping || game.isSick) return;
-            game.happiness = Math.min(100, game.happiness + 20);
-            game.weight = Math.min(99, game.weight + 2);
-            addExp(5);
+            game.happiness = Math.min(100, game.happiness + 20); game.weight = Math.min(99, game.weight + 2); addExp(5);
             const stage = getEvolutionStage(game.level).stage;
-            renderPet(getSpriteKey(stage, 'eating'));
-            pixelPetEl.classList.add('eating');
+            renderPet(getSpriteKey(stage, 'eating')); pixelPetEl.classList.add('eating');
             showMessage('Sweet!'); showEffect('🍬');
-            // Too much snack can make sick
-            if (game.weight > 50 && Math.random() < 0.2) {
-                game.isSick = true;
-                showMessage('Feeling sick...');
-            }
-            setTimeout(updatePetSprite, 1500);
-            updateUI(); saveGame();
+            if (game.weight > 50 && Math.random() < 0.2) { game.isSick = true; showMessage('Feeling sick...'); }
+            setTimeout(updatePetSprite, 1500); updateUI(); saveGame();
         }
 
         function toggleLight() {
             if (game.isDead) return;
             game.lightsOff = !game.lightsOff;
-            if (game.lightsOff) {
-                game.isSleeping = true;
-                showMessage('Good night...');
-            } else {
-                game.isSleeping = false;
-                showMessage('Good morning!');
-            }
+            game.isSleeping = game.lightsOff;
+            showMessage(game.lightsOff ? 'Good night...' : 'Good morning!');
             updateUI(); saveGame();
         }
 
         function clean() {
             if (game.isDead || game.isSleeping) return;
-            game.cleanliness = Math.min(100, game.cleanliness + 40);
-            game.poopCount = 0;
-            addExp(5);
-            showMessage('Clean!'); showEffect('✨');
-            updateUI(); saveGame();
+            game.cleanliness = Math.min(100, game.cleanliness + 40); game.poopCount = 0; addExp(5);
+            showMessage('Clean!'); showEffect('✨'); updateUI(); saveGame();
         }
 
         function giveMedicine() {
             if (game.isDead || !game.isSick) return;
-            game.isSick = false;
-            game.happiness = Math.max(0, game.happiness - 10); // Medicine tastes bad
-            showMessage('Cured!'); showEffect('💊');
-            updateUI(); saveGame();
+            game.isSick = false; game.happiness = Math.max(0, game.happiness - 10);
+            showMessage('Cured!'); showEffect('💊'); updateUI(); saveGame();
         }
 
         function praise() {
             if (game.isDead || game.isSleeping) return;
-            game.discipline = Math.min(100, game.discipline + 10);
-            game.happiness = Math.min(100, game.happiness + 5);
-            addExp(5);
-            showMessage('Good job!'); showEffect('👍');
-            updateUI(); saveGame();
+            game.discipline = Math.min(100, game.discipline + 10); game.happiness = Math.min(100, game.happiness + 5); addExp(5);
+            showMessage('Good job!'); showEffect('👍'); updateUI(); saveGame();
         }
 
-        function showStats() {
-            $('statName').textContent = game.name;
-            $('statAge').textContent = game.age;
-            $('statWeight').textContent = game.weight;
-            $('statLevel').textContent = game.level;
-            $('statStage').textContent = getEvolutionStage(game.level).name;
-            $('statGen').textContent = game.generation;
-            $('statHunger').textContent = Math.round(game.hunger);
-            $('statHappy').textContent = Math.round(game.happiness);
-            $('statDisc').textContent = Math.round(game.discipline);
-            $('statsModal').classList.add('active');
-        }
-
-        // Mini Game
         function startMiniGame() {
             if (game.isDead || game.isSleeping || game.isSick) return;
             if (game.energy < 20) { showMessage('Too tired...'); return; }
-            
-            miniGame.active = true;
-            miniGame.score = 0;
-            $('gameScore').textContent = '0';
-            $('gameOverlay').classList.add('active');
-            $('obstacle').style.right = '-20px';
-            
+            miniGame.active = true; miniGame.score = 0;
+            $('gameScore').textContent = '0'; $('gameOverlay').classList.add('active'); $('obstacle').style.right = '-20px';
             miniGame.obstacleInterval = setInterval(moveObstacle, 50);
         }
 
         function moveObstacle() {
             const obstacle = $('obstacle');
-            const player = $('player');
-            let pos = parseInt(obstacle.style.right) || -20;
-            pos += 3;
-            
-            if (pos > 160) {
-                pos = -20;
-                miniGame.score++;
-                $('gameScore').textContent = miniGame.score;
-            }
-            
+            let pos = parseInt(obstacle.style.right) || -20; pos += 3;
+            if (pos > 160) { pos = -20; miniGame.score++; $('gameScore').textContent = miniGame.score; }
             obstacle.style.right = pos + 'px';
-            
-            // Collision detection
-            const playerRect = player.getBoundingClientRect();
-            const obstacleRect = obstacle.getBoundingClientRect();
-            
-            if (pos > 100 && pos < 140 && !miniGame.jumping) {
-                endMiniGame();
-            }
+            if (pos > 100 && pos < 140 && !miniGame.jumping) endMiniGame();
         }
 
         function jump() {
             if (!miniGame.active || miniGame.jumping) return;
-            miniGame.jumping = true;
-            $('player').classList.add('jumping');
-            setTimeout(() => {
-                $('player').classList.remove('jumping');
-                miniGame.jumping = false;
-            }, 400);
+            miniGame.jumping = true; $('player').classList.add('jumping');
+            setTimeout(() => { $('player').classList.remove('jumping'); miniGame.jumping = false; }, 400);
         }
 
         function endMiniGame() {
-            clearInterval(miniGame.obstacleInterval);
-            miniGame.active = false;
-            $('gameOverlay').classList.remove('active');
-            
-            // Rewards
+            clearInterval(miniGame.obstacleInterval); miniGame.active = false; $('gameOverlay').classList.remove('active');
             const score = miniGame.score;
-            let happyGain = Math.min(30, score * 3);
-            let expGain = Math.min(20, score * 2);
-            
+            let happyGain = Math.min(30, score * 3), expGain = Math.min(20, score * 2);
             game.happiness = Math.min(100, game.happiness + happyGain);
-            game.energy = Math.max(0, game.energy - 15);
-            game.weight = Math.max(1, game.weight - 1);
-            addExp(expGain);
-            
-            $('finalScore').textContent = score;
-            $('gameReward').textContent = `+${happyGain} Happiness, +${expGain} EXP`;
-            $('gameResultModal').classList.add('active');
-            
-            updateUI(); saveGame();
+            game.energy = Math.max(0, game.energy - 15); game.weight = Math.max(1, game.weight - 1); addExp(expGain);
+            $('finalScore').textContent = score; $('gameReward').textContent = `+${happyGain} Happiness, +${expGain} EXP`;
+            $('gameResultModal').classList.add('active'); updateUI(); saveGame();
         }
 
-        // Game tick
         function gameTick() {
             if (game.isDead) return;
-            
-            // Age increases daily
-            if (game.createdAt) {
-                game.age = Math.floor((Date.now() - game.createdAt) / (1000 * 60 * 60 * 24));
-            }
-
-            if (game.isSleeping) {
-                game.energy = Math.min(100, game.energy + 5);
-                game.hunger = Math.max(0, game.hunger - 0.5);
-            } else {
-                game.hunger = Math.max(0, game.hunger - 2);
-                game.happiness = Math.max(0, game.happiness - 1);
-                game.energy = Math.max(0, game.energy - 1);
-                game.cleanliness = Math.max(0, game.cleanliness - 1);
-            }
-
-            // Random poop
-            if (!game.isSleeping && Math.random() < 0.05 && game.poopCount < 2) {
-                game.poopCount++;
-                game.cleanliness = Math.max(0, game.cleanliness - 10);
-            }
-
-            // Get sick from poor care
-            if (!game.isSick && (game.cleanliness < 20 || game.poopCount >= 2) && Math.random() < 0.1) {
-                game.isSick = true;
-                showMessage('Feeling sick!');
-            }
-
-            // Death check
-            if (game.hunger <= 0 || game.happiness <= 0 || (game.isSick && Math.random() < 0.05)) {
-                game.isDead = true;
-            }
-
+            if (game.createdAt) game.age = Math.floor((Date.now() - game.createdAt) / (1000 * 60 * 60 * 24));
+            if (game.isSleeping) { game.energy = Math.min(100, game.energy + 5); game.hunger = Math.max(0, game.hunger - 0.5); }
+            else { game.hunger = Math.max(0, game.hunger - 2); game.happiness = Math.max(0, game.happiness - 1); game.energy = Math.max(0, game.energy - 1); game.cleanliness = Math.max(0, game.cleanliness - 1); }
+            if (!game.isSleeping && Math.random() < 0.05 && game.poopCount < 2) { game.poopCount++; game.cleanliness = Math.max(0, game.cleanliness - 10); }
+            if (!game.isSick && (game.cleanliness < 20 || game.poopCount >= 2) && Math.random() < 0.1) { game.isSick = true; showMessage('Feeling sick!'); }
+            if (game.hunger <= 0 || game.happiness <= 0 || (game.isSick && Math.random() < 0.05)) game.isDead = true;
             updateUI(); saveGame();
         }
 
-        // Cover
         function changeCover(cover) {
-            game.cover = cover;
-            $('deviceBody').className = 'device-body ' + cover;
+            game.cover = cover; $('deviceBody').className = 'device-body ' + cover;
             document.querySelectorAll('.cover-btn').forEach(b => b.classList.toggle('active', b.dataset.cover === cover));
             saveGame();
         }
 
-        // Save/Load
-        function saveGame() {
-            game.lastUpdate = Date.now();
-            localStorage.setItem('tomo_save', JSON.stringify(game));
-        }
+        function saveGame() { game.lastUpdate = Date.now(); localStorage.setItem('tomo_save', JSON.stringify(game)); }
 
         function loadGame() {
             const saved = localStorage.getItem('tomo_save');
             if (saved) {
                 game = { ...game, ...JSON.parse(saved) };
-                
-                // Offline time
                 if (game.lastUpdate) {
                     const offline = Math.min(Math.floor((Date.now() - game.lastUpdate) / 5000), 100);
-                    for (let i = 0; i < offline; i++) {
-                        if (!game.isDead) {
-                            game.hunger = Math.max(0, game.hunger - 1);
-                            game.happiness = Math.max(0, game.happiness - 0.5);
-                        }
-                    }
+                    for (let i = 0; i < offline; i++) { if (!game.isDead) { game.hunger = Math.max(0, game.hunger - 1); game.happiness = Math.max(0, game.happiness - 0.5); } }
                     if (game.hunger <= 0 || game.happiness <= 0) game.isDead = true;
                 }
-                
-                if (game.createdAt) {
-                    game.age = Math.floor((Date.now() - game.createdAt) / (1000 * 60 * 60 * 24));
-                }
-                
-                changeCover(game.cover || 'pink');
-                return true;
+                if (game.createdAt) game.age = Math.floor((Date.now() - game.createdAt) / (1000 * 60 * 60 * 24));
+                changeCover(game.cover || 'pink'); return true;
             }
             return false;
         }
@@ -782,68 +758,29 @@
         function resetGame() {
             if (!confirm('Reset game? All data will be lost.')) return;
             localStorage.removeItem('tomo_save');
-            game = {
-                name: '', hunger: 100, happiness: 100, energy: 100, cleanliness: 100,
-                level: 1, exp: 0, maxExp: 100, age: 0, weight: 5, discipline: 0, generation: 1,
-                isSleeping: false, isDead: false, isSick: false, lightsOff: false,
-                poopCount: 0, cover: 'pink', createdAt: null, lastUpdate: null
-            };
-            $('deathOverlay').classList.remove('active');
-            $('nameModal').classList.add('active');
-            changeCover('pink');
-            updateUI();
+            game = { name: '', hunger: 100, happiness: 100, energy: 100, cleanliness: 100, level: 1, exp: 0, maxExp: 100, age: 0, weight: 5, discipline: 0, generation: 1, isSleeping: false, isDead: false, isSick: false, lightsOff: false, poopCount: 0, cover: 'pink', createdAt: null, lastUpdate: null };
+            $('deathOverlay').classList.remove('active'); $('nameModal').classList.add('active'); changeCover('pink'); updateUI();
         }
 
-        // Events
-        $('btnFood').onclick = feedFood;
-        $('btnSnack').onclick = feedSnack;
-        $('btnGame').onclick = startMiniGame;
-        $('btnSleep').onclick = toggleLight;
-        $('btnClean').onclick = clean;
-        $('btnMed').onclick = giveMedicine;
-        $('btnPraise').onclick = praise;
-        $('btnStats').onclick = showStats;
-        $('btnReset').onclick = resetGame;
-
-        $('btnA').onclick = feedFood;
-        $('btnB').onclick = startMiniGame;
-        $('btnC').onclick = toggleLight;
-
+        $('btnFood').onclick = feedFood; $('btnSnack').onclick = feedSnack; $('btnGame').onclick = startMiniGame;
+        $('btnSleep').onclick = toggleLight; $('btnClean').onclick = clean; $('btnMed').onclick = giveMedicine;
+        $('btnPraise').onclick = praise; $('btnReset').onclick = resetGame;
+        $('btnA').onclick = feedFood; $('btnB').onclick = startMiniGame; $('btnC').onclick = toggleLight;
         document.querySelectorAll('.cover-btn').forEach(b => b.onclick = () => changeCover(b.dataset.cover));
 
         $('nameSubmit').onclick = () => {
             const name = $('nameInput').value.trim();
-            if (name) {
-                game.name = name;
-                game.createdAt = Date.now();
-                $('nameModal').classList.remove('active');
-                renderPet('egg');
-                setTimeout(() => { showMessage(name + ' is born!'); updatePetSprite(); }, 1500);
-                saveGame();
-            }
+            if (name) { game.name = name; game.createdAt = Date.now(); $('nameModal').classList.remove('active'); renderPet('egg'); setTimeout(() => { showMessage(name + ' is born!'); updatePetSprite(); }, 1500); saveGame(); }
         };
         $('nameInput').onkeypress = e => { if (e.key === 'Enter') $('nameSubmit').click(); };
-
-        $('closeStats').onclick = () => $('statsModal').classList.remove('active');
         $('closeGame').onclick = () => $('gameResultModal').classList.remove('active');
-
-        // Keyboard for mini game
-        document.addEventListener('keydown', e => {
-            if (e.code === 'Space' && miniGame.active) { e.preventDefault(); jump(); }
-        });
+        document.addEventListener('keydown', e => { if (e.code === 'Space' && miniGame.active) { e.preventDefault(); jump(); } });
         $('gameArea').onclick = jump;
 
-        // Init
         function init() {
-            if (!loadGame() || !game.name) {
-                $('nameModal').classList.add('active');
-                renderPet('egg');
-            } else {
-                updateUI();
-            }
+            if (!loadGame() || !game.name) { $('nameModal').classList.add('active'); renderPet('egg'); } else { updateUI(); }
             setInterval(gameTick, 5000);
         }
-
         init();
     </script>
 </body>

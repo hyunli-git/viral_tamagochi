@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tamagotchi - Virtual Pet Game</title>
-    <meta name="description" content="Raise your own cute digital pet! Free online Tamagotchi game">
+    <title>Tomo - Virtual Pet Game</title>
+    <meta name="description" content="Raise your own cute digital pet! Free online virtual pet game">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
@@ -277,7 +277,7 @@
 </head>
 <body>
     <div class="ad-banner">AD SPACE (728x90)</div>
-    <h1 class="game-title">TAMAGOTCHI</h1>
+    <h1 class="game-title">TOMO</h1>
 
     <div class="cover-selector">
         <button class="cover-btn pink active" data-cover="pink"></button>
@@ -749,11 +749,11 @@
         // Save/Load
         function saveGame() {
             game.lastUpdate = Date.now();
-            localStorage.setItem('tamagochi_v3', JSON.stringify(game));
+            localStorage.setItem('tomo_save', JSON.stringify(game));
         }
 
         function loadGame() {
-            const saved = localStorage.getItem('tamagochi_v3');
+            const saved = localStorage.getItem('tomo_save');
             if (saved) {
                 game = { ...game, ...JSON.parse(saved) };
                 
@@ -781,7 +781,7 @@
 
         function resetGame() {
             if (!confirm('Reset game? All data will be lost.')) return;
-            localStorage.removeItem('tamagochi_v3');
+            localStorage.removeItem('tomo_save');
             game = {
                 name: '', hunger: 100, happiness: 100, energy: 100, cleanliness: 100,
                 level: 1, exp: 0, maxExp: 100, age: 0, weight: 5, discipline: 0, generation: 1,

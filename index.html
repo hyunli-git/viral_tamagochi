@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>타마고치 - 나만의 디지털 펫</title>
-    <meta name="description" content="귀여운 디지털 펫을 키워보세요! 무료 온라인 다마고치 게임">
+    <title>Tamagotchi - Virtual Pet Game</title>
+    <meta name="description" content="Raise your own cute digital pet! Free online Tamagotchi game">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
@@ -620,21 +620,21 @@
     </style>
 </head>
 <body>
-    <div class="ad-banner">광고 영역 (728x90)</div>
+    <div class="ad-banner">AD SPACE (728x90)</div>
 
     <h1 class="game-title">TAMAGOTCHI</h1>
 
-    <!-- 커버 선택 -->
+    <!-- Cover Selector -->
     <div class="cover-selector">
-        <button class="cover-btn pink active" data-cover="pink" title="핑크"></button>
-        <button class="cover-btn blue" data-cover="blue" title="블루"></button>
-        <button class="cover-btn purple" data-cover="purple" title="퍼플"></button>
-        <button class="cover-btn mint" data-cover="mint" title="민트"></button>
-        <button class="cover-btn orange" data-cover="orange" title="오렌지"></button>
-        <button class="cover-btn glitter" data-cover="glitter" title="글리터"></button>
+        <button class="cover-btn pink active" data-cover="pink" title="Pink"></button>
+        <button class="cover-btn blue" data-cover="blue" title="Blue"></button>
+        <button class="cover-btn purple" data-cover="purple" title="Purple"></button>
+        <button class="cover-btn mint" data-cover="mint" title="Mint"></button>
+        <button class="cover-btn orange" data-cover="orange" title="Orange"></button>
+        <button class="cover-btn glitter" data-cover="glitter" title="Glitter"></button>
     </div>
 
-    <!-- 기기 -->
+    <!-- Device -->
     <div class="device">
         <div class="chain-loop"></div>
         <div class="device-body pink" id="deviceBody">
@@ -703,24 +703,24 @@
         </div>
     </div>
 
-    <!-- 하단 컨트롤 -->
+    <!-- Bottom Controls -->
     <div class="bottom-controls">
-        <button class="control-btn" id="btnFeed">🍖 먹이</button>
-        <button class="control-btn" id="btnPlay">⚽ 놀기</button>
-        <button class="control-btn" id="btnSleep">😴 수면</button>
-        <button class="control-btn" id="btnClean">🧹 청소</button>
-        <button class="control-btn" id="btnReset">🔄 리셋</button>
+        <button class="control-btn" id="btnFeed">🍖 Feed</button>
+        <button class="control-btn" id="btnPlay">⚽ Play</button>
+        <button class="control-btn" id="btnSleep">😴 Sleep</button>
+        <button class="control-btn" id="btnClean">🧹 Clean</button>
+        <button class="control-btn" id="btnReset">🔄 Reset</button>
     </div>
 
-    <!-- 사이드 광고 -->
-    <div class="sidebar-ad">광고 영역<br>(160x600)</div>
+    <!-- Sidebar Ad -->
+    <div class="sidebar-ad">AD SPACE<br>(160x600)</div>
 
-    <!-- 이름 모달 -->
+    <!-- Name Modal -->
     <div class="modal" id="nameModal">
         <div class="modal-content">
-            <h2>🥚 새 펫이 태어났어요!</h2>
-            <input type="text" id="nameInput" placeholder="이름을 지어주세요" maxlength="8">
-            <button class="modal-btn" id="nameSubmit">시작!</button>
+            <h2>🥚 A new pet is born!</h2>
+            <input type="text" id="nameInput" placeholder="Name your pet" maxlength="8">
+            <button class="modal-btn" id="nameSubmit">Start!</button>
         </div>
     </div>
 
@@ -995,7 +995,7 @@
             
             renderPet('eating');
             pixelPetEl.classList.add('eating');
-            showMessage('냠냠!');
+            showMessage('Yummy!');
             showEffect('🍖');
             
             if (Math.random() < 0.3 && game.poopCount < 2) game.poopCount++;
@@ -1008,7 +1008,7 @@
         function play() {
             if (game.isDead || game.isSleeping) return;
             if (game.energy < 20) {
-                showMessage('피곤해...');
+                showMessage('Too tired...');
                 return;
             }
             
@@ -1019,7 +1019,7 @@
             
             renderPet('happy');
             pixelPetEl.classList.add('playing');
-            showMessage('신난다!');
+            showMessage('So fun!');
             showEffect('⚽');
             
             setTimeout(updatePetSprite, 2000);
@@ -1031,7 +1031,7 @@
             if (game.isDead) return;
             
             game.isSleeping = !game.isSleeping;
-            showMessage(game.isSleeping ? 'zzZ...' : '잘잤다!');
+            showMessage(game.isSleeping ? 'zzZ...' : 'Good morning!');
             updateUI();
             saveGame();
         }
@@ -1043,7 +1043,7 @@
             game.poopCount = 0;
             addExp(5);
             
-            showMessage('깨끗!');
+            showMessage('Sparkly!');
             showEffect('✨');
             updateUI();
             saveGame();
@@ -1117,7 +1117,7 @@
         }
 
         function resetGame() {
-            if (!confirm('리셋할까요?')) return;
+            if (!confirm('Reset game?')) return;
             localStorage.removeItem('tamagochi_v2');
             game = {
                 name: '', hunger: 100, happiness: 100, energy: 100, cleanliness: 100,
@@ -1153,7 +1153,7 @@
                 $('nameModal').classList.remove('active');
                 renderPet('egg');
                 setTimeout(() => {
-                    showMessage(name + ' 탄생!');
+                    showMessage(name + ' is born!');
                     updatePetSprite();
                 }, 1500);
                 saveGame();

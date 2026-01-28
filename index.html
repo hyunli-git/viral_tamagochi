@@ -426,10 +426,18 @@
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background: var(--screen-bg); display: none;
             flex-direction: column; align-items: center; justify-content: center;
-            border-radius: 8px;
+            border-radius: 8px; gap: 10px;
         }
         .death-overlay.active { display: flex; }
         .death-text { font-size: 10px; color: var(--screen-pixel); text-align: center; }
+        .restart-btn {
+            background: var(--screen-pixel); color: var(--screen-bg);
+            border: none; padding: 6px 12px; font-family: inherit;
+            font-size: 9px; cursor: pointer; border-radius: 3px;
+            margin-top: 8px;
+        }
+        .restart-btn:hover { opacity: 0.8; }
+        .restart-btn:active { transform: scale(0.95); }
 
         .game-overlay {
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
@@ -527,6 +535,7 @@
                         <div class="pet-info" id="petInfo"></div>
                         <div class="death-overlay" id="deathOverlay">
                             <div class="death-text">💀<br>R.I.P<br><span id="deathName"></span></div>
+                            <button class="restart-btn" id="restartBtn">Try Again</button>
                         </div>
                         <div class="game-overlay" id="gameOverlay">
                             <div class="game-title-small">JUMP GAME</div>
@@ -939,8 +948,8 @@
             return false;
         }
 
-        function resetGame() {
-            if (!confirm('Reset game? All data will be lost.')) return;
+        function resetGame(skipConfirm = false) {
+            if (!skipConfirm && !confirm('Reset game? All data will be lost.')) return;
             localStorage.removeItem('tomo_save');
             game = { name: '', hunger: 100, happiness: 100, energy: 100, cleanliness: 100, level: 1, exp: 0, maxExp: 100, age: 0, weight: 5, discipline: 0, generation: 1, isSleeping: false, isDead: false, isSick: false, lightsOff: false, poopCount: 0, cover: 'red', createdAt: null, lastUpdate: null };
             $('deathOverlay').classList.remove('active'); $('nameModal').classList.add('active'); changeCover('red'); updateUI();
@@ -951,6 +960,7 @@
         $('btnPraise').onclick = praise; $('btnReset').onclick = resetGame;
         $('btnA').onclick = feedFood; $('btnB').onclick = startMiniGame;
         $('btnSelect').onclick = toggleLight; $('btnStart').onclick = clean;
+        $('restartBtn').onclick = () => resetGame(true);
         document.querySelectorAll('.cover-btn').forEach(b => b.onclick = () => changeCover(b.dataset.cover));
 
         $('nameSubmit').onclick = () => {

@@ -732,7 +732,7 @@
         const $ = id => document.getElementById(id);
         const pixelPetEl = $('pixelPet');
         const screen = $('screen');
-        let miniGame = { active: false, score: 0, obstacleInterval: null, jumping: false };
+        let miniGame = { active: false, score: 0, obstacleInterval: null, jumping: false, obstaclePos: -20 };
 
         function getEvolutionStage(level) {
             let current = evolutionStages[0];
@@ -880,34 +880,75 @@
 
         function startMiniGame() {
             if (game.isDead || game.isSleeping || game.isSick) return;
+            if (miniGame.active) return; // Prevent starting while game is running
             if (game.energy < 20) { showMessage('Too tired...'); return; }
-            miniGame.active = true; miniGame.score = 0;
-            $('gameScore').textContent = '0'; $('gameOverlay').classList.add('active'); $('obstacle').style.right = '-20px';
+            
+            // Clear any existing interval
+            if (miniGame.obstacleInterval) clearInterval(miniGame.obstacleInterval);
+            
+            miniGame.active = true; 
+            miniGame.score = 0;
+            miniGame.jumping = false;
+            miniGame.obstaclePos = -20;
+            
+            $('gameScore').textContent = '0'; 
+            $('gameOverlay').classList.add('active'); 
+            $('obstacle').style.right = '-20px';
+            $('player').classList.remove('jumping');
+            
             miniGame.obstacleInterval = setInterval(moveObstacle, 50);
         }
 
         function moveObstacle() {
-            const obstacle = $('obstacle');
-            let pos = parseInt(obstacle.style.right) || -20; pos += 3;
-            if (pos > 160) { pos = -20; miniGame.score++; $('gameScore').textContent = miniGame.score; }
-            obstacle.style.right = pos + 'px';
-            if (pos > 100 && pos < 140 && !miniGame.jumping) endMiniGame();
+            if (!miniGame.active) return;
+            
+            miniGame.obstaclePos += 3;
+            
+            if (miniGame.obstaclePos > 160) { 
+                miniGame.obstaclePos = -20; 
+                miniGame.score++; 
+                $('gameScore').textContent = miniGame.score; 
+            }
+            
+            $('obstacle').style.right = miniGame.obstaclePos + 'px';
+            
+            // Collision detection: player is at left 20px, width 12px
+            // Obstacle hits when it's at right 100-130 (left 20-50 in 150px area)
+            if (miniGame.obstaclePos > 95 && miniGame.obstaclePos < 130 && !miniGame.jumping) {
+                endMiniGame();
+            }
         }
 
         function jump() {
             if (!miniGame.active || miniGame.jumping) return;
-            miniGame.jumping = true; $('player').classList.add('jumping');
-            setTimeout(() => { $('player').classList.remove('jumping'); miniGame.jumping = false; }, 400);
+            miniGame.jumping = true; 
+            $('player').classList.add('jumping');
+            setTimeout(() => { 
+                $('player').classList.remove('jumping'); 
+                miniGame.jumping = false; 
+            }, 400);
         }
 
         function endMiniGame() {
-            clearInterval(miniGame.obstacleInterval); miniGame.active = false; $('gameOverlay').classList.remove('active');
+            if (!miniGame.active) return; // Prevent multiple calls
+            
+            clearInterval(miniGame.obstacleInterval); 
+            miniGame.obstacleInterval = null;
+            miniGame.active = false; 
+            $('gameOverlay').classList.remove('active');
+            
             const score = miniGame.score;
             let happyGain = Math.min(30, score * 3), expGain = Math.min(20, score * 2);
             game.happiness = Math.min(100, game.happiness + happyGain);
-            game.energy = Math.max(0, game.energy - 15); game.weight = Math.max(1, game.weight - 1); addExp(expGain);
-            $('finalScore').textContent = score; $('gameReward').textContent = `+${happyGain} Happiness, +${expGain} EXP`;
-            $('gameResultModal').classList.add('active'); updateUI(); saveGame();
+            game.energy = Math.max(0, game.energy - 15); 
+            game.weight = Math.max(1, game.weight - 1); 
+            addExp(expGain);
+            
+            $('finalScore').textContent = score; 
+            $('gameReward').textContent = `+${happyGain} Happiness, +${expGain} EXP`;
+            $('gameResultModal').classList.add('active'); 
+            updateUI(); 
+            saveGame();
         }
 
         function gameTick() {

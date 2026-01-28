@@ -37,18 +37,55 @@
             flex-wrap: wrap; justify-content: center;
         }
         .cover-btn {
-            width: 40px; height: 40px; border-radius: 50%;
+            width: 40px; height: 40px; border-radius: 8px;
             border: 3px solid rgba(255,255,255,0.5);
             cursor: pointer; transition: all 0.2s;
         }
         .cover-btn:hover { transform: scale(1.1); border-color: white; }
         .cover-btn.active { border-color: white; box-shadow: 0 0 15px rgba(255,255,255,0.5); }
-        .cover-btn.pink { background: linear-gradient(135deg, #ff9a9e, #fecfef); }
-        .cover-btn.blue { background: linear-gradient(135deg, #a1c4fd, #c2e9fb); }
-        .cover-btn.purple { background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
-        .cover-btn.mint { background: linear-gradient(135deg, #84fab0, #8fd3f4); }
-        .cover-btn.orange { background: linear-gradient(135deg, #fa709a, #fee140); }
-        .cover-btn.glitter { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        /* Solid colors */
+        .cover-btn.red { background: linear-gradient(145deg, #e74c3c, #c0392b); }
+        .cover-btn.blue { background: linear-gradient(145deg, #3498db, #2980b9); }
+        .cover-btn.green { background: linear-gradient(145deg, #2ecc71, #27ae60); }
+        /* Patterns */
+        .cover-btn.checkerboard {
+            background: repeating-conic-gradient(#333 0% 25%, #f0f0f0 0% 50%) 50% / 12px 12px;
+        }
+        .cover-btn.stripes {
+            background: repeating-linear-gradient(45deg, #ff6b6b, #ff6b6b 4px, #ffd93d 4px, #ffd93d 8px);
+        }
+        .cover-btn.dots {
+            background: radial-gradient(circle, #fff 2px, transparent 2px), #9b59b6;
+            background-size: 8px 8px;
+        }
+        .cover-btn.rainbow {
+            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff);
+        }
+        .cover-btn.camo {
+            background: 
+                radial-gradient(ellipse at 30% 20%, #556b2f 20%, transparent 50%),
+                radial-gradient(ellipse at 70% 60%, #2f4f4f 25%, transparent 55%),
+                radial-gradient(ellipse at 50% 80%, #6b8e23 15%, transparent 45%),
+                #8fbc8f;
+        }
+        .cover-btn.galaxy {
+            background: radial-gradient(ellipse at 30% 30%, #667eea 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 70%, #764ba2 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, #0c0c0c 0%, #1a1a2e 100%);
+        }
+        .cover-btn.retro {
+            background: linear-gradient(135deg, #f5af19 0%, #f12711 50%, #f5af19 100%);
+        }
+        .cover-btn.pixel {
+            background: 
+                linear-gradient(90deg, #333 50%, transparent 50%),
+                linear-gradient(#333 50%, transparent 50%),
+                #8b5cf6;
+            background-size: 8px 8px;
+        }
+        .cover-btn.wood {
+            background: repeating-linear-gradient(90deg, #8b4513 0px, #a0522d 2px, #8b4513 4px, #cd853f 6px, #8b4513 8px);
+        }
 
         /* Main container - device + stats panel */
         .main-container {
@@ -60,33 +97,105 @@
         }
 
         .device {
-            position: relative; width: 320px; height: 400px;
+            position: relative; width: 260px; height: 420px;
             filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
         }
         .device-body {
             position: absolute; width: 100%; height: 100%;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ff9a9e 100%);
-            border-radius: 50% 50% 47% 47% / 60% 60% 40% 40%;
-            box-shadow: inset 0 -20px 40px rgba(0,0,0,0.1), inset 0 10px 30px rgba(255,255,255,0.4);
-            transition: background 0.5s;
+            background: linear-gradient(145deg, #e74c3c, #c0392b);
+            border-radius: 20px 20px 20px 20px;
+            box-shadow: 
+                inset 0 2px 0 rgba(255,255,255,0.3),
+                inset 0 -4px 0 rgba(0,0,0,0.2),
+                inset 4px 0 0 rgba(255,255,255,0.1),
+                inset -4px 0 0 rgba(0,0,0,0.1);
+            transition: background 0.3s;
         }
-        .device-body.pink { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ff9a9e 100%); }
-        .device-body.blue { background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 50%, #a1c4fd 100%); }
-        .device-body.purple { background: linear-gradient(135deg, #a18cd1 0%, #ddd6f3 50%, #a18cd1 100%); }
-        .device-body.mint { background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 50%, #84fab0 100%); }
-        .device-body.orange { background: linear-gradient(135deg, #fa709a 0%, #fee140 50%, #fa709a 100%); }
-        .device-body.glitter { background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #f093fb 100%); }
+        /* Solid colors */
+        .device-body.red { background: linear-gradient(145deg, #e74c3c, #c0392b); }
+        .device-body.blue { background: linear-gradient(145deg, #3498db, #2980b9); }
+        .device-body.green { background: linear-gradient(145deg, #2ecc71, #27ae60); }
+        /* Patterns */
+        .device-body.checkerboard {
+            background: repeating-conic-gradient(#333 0% 25%, #f0f0f0 0% 50%) 50% / 20px 20px;
+        }
+        .device-body.stripes {
+            background: repeating-linear-gradient(45deg, #ff6b6b, #ff6b6b 10px, #ffd93d 10px, #ffd93d 20px);
+        }
+        .device-body.dots {
+            background: radial-gradient(circle, #fff 3px, transparent 3px), #9b59b6;
+            background-size: 15px 15px;
+        }
+        .device-body.rainbow {
+            background: linear-gradient(180deg, #ff0000 0%, #ff7f00 16%, #ffff00 33%, #00ff00 50%, #0000ff 66%, #4b0082 83%, #8f00ff 100%);
+        }
+        .device-body.camo {
+            background: 
+                radial-gradient(ellipse at 30% 20%, #556b2f 20%, transparent 50%),
+                radial-gradient(ellipse at 70% 60%, #2f4f4f 25%, transparent 55%),
+                radial-gradient(ellipse at 50% 80%, #6b8e23 15%, transparent 45%),
+                radial-gradient(ellipse at 20% 70%, #556b2f 18%, transparent 48%),
+                radial-gradient(ellipse at 80% 30%, #2f4f4f 20%, transparent 50%),
+                #8fbc8f;
+        }
+        .device-body.galaxy {
+            background: 
+                radial-gradient(ellipse at 30% 30%, #667eea 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 70%, #764ba2 0%, transparent 50%),
+                radial-gradient(ellipse at 60% 20%, rgba(255,255,255,0.1) 0%, transparent 20%),
+                radial-gradient(ellipse at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 15%),
+                radial-gradient(circle at 50% 50%, #0c0c0c 0%, #1a1a2e 100%);
+        }
+        .device-body.retro {
+            background: 
+                linear-gradient(135deg, transparent 40%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.1) 60%, transparent 60%),
+                linear-gradient(135deg, #f5af19 0%, #f12711 50%, #f5af19 100%);
+        }
+        .device-body.pixel {
+            background: 
+                linear-gradient(90deg, rgba(0,0,0,0.1) 50%, transparent 50%),
+                linear-gradient(rgba(0,0,0,0.1) 50%, transparent 50%),
+                linear-gradient(145deg, #8b5cf6, #6d28d9);
+            background-size: 15px 15px, 15px 15px, 100% 100%;
+        }
+        .device-body.wood {
+            background: 
+                repeating-linear-gradient(90deg, 
+                    #8b4513 0px, #a0522d 3px, #8b4513 6px, #cd853f 9px, #8b4513 12px,
+                    #a0522d 15px, #cd853f 18px, #8b4513 21px);
+        }
 
-        .chain-loop {
-            position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
-            width: 40px; height: 25px; border: 6px solid #888;
-            border-bottom: none; border-radius: 20px 20px 0 0;
+        .device-top {
+            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 80px; height: 15px; background: inherit;
+            border-radius: 5px 5px 0 0;
+            margin-top: -10px;
+        }
+        .device-notch {
+            position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+            width: 40px; height: 8px; background: rgba(0,0,0,0.3);
+            border-radius: 0 0 5px 5px;
         }
         .screen-frame {
-            position: absolute; top: 70px; left: 50%; transform: translateX(-50%);
-            width: 180px; height: 160px; background: white;
-            border-radius: 15px; padding: 8px;
-            box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
+            position: absolute; top: 40px; left: 50%; transform: translateX(-50%);
+            width: 200px; height: 180px; background: #1a1a1a;
+            border-radius: 10px; padding: 10px;
+            box-shadow: inset 0 4px 15px rgba(0,0,0,0.5);
+            border: 3px solid #333;
+        }
+        .screen-label {
+            position: absolute; top: 225px; left: 50%; transform: translateX(-50%);
+            font-size: 14px; color: rgba(255,255,255,0.8); font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            letter-spacing: 3px;
+        }
+        .speaker-grille {
+            position: absolute; top: 255px; right: 30px;
+            display: flex; flex-direction: column; gap: 3px;
+        }
+        .speaker-line {
+            width: 30px; height: 2px; background: rgba(0,0,0,0.3);
+            border-radius: 1px;
         }
         .screen {
             width: 100%; height: 100%; background: var(--screen-bg);
@@ -164,18 +273,60 @@
             font-size: 8px; color: var(--screen-pixel); text-align: center; max-width: 140px;
         }
 
-        .buttons {
-            position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%);
-            display: flex; gap: 25px;
+        .controls-area {
+            position: absolute; bottom: 30px; left: 0; right: 0;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 25px;
+        }
+        .dpad {
+            position: relative; width: 70px; height: 70px;
+        }
+        .dpad-center {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 24px; height: 24px; background: #333;
+            border-radius: 4px;
+        }
+        .dpad-btn {
+            position: absolute; width: 24px; height: 24px;
+            background: linear-gradient(145deg, #444, #222);
+            border: none; cursor: pointer; border-radius: 3px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .dpad-btn:active { transform: scale(0.95); }
+        .dpad-up { top: 0; left: 50%; transform: translateX(-50%); border-radius: 5px 5px 3px 3px; }
+        .dpad-down { bottom: 0; left: 50%; transform: translateX(-50%); border-radius: 3px 3px 5px 5px; }
+        .dpad-left { left: 0; top: 50%; transform: translateY(-50%); border-radius: 5px 3px 3px 5px; }
+        .dpad-right { right: 0; top: 50%; transform: translateY(-50%); border-radius: 3px 5px 5px 3px; }
+        
+        .action-buttons {
+            display: flex; gap: 10px; align-items: center;
         }
         .btn {
-            width: 35px; height: 35px; border-radius: 50%; border: none;
-            background: linear-gradient(145deg, #fff, #e0e0e0);
-            box-shadow: 0 4px 0 #ccc, 0 6px 10px rgba(0,0,0,0.2);
-            cursor: pointer; font-size: 12px;
+            width: 40px; height: 40px; border-radius: 50%; border: none;
+            background: linear-gradient(145deg, #e74c3c, #c0392b);
+            box-shadow: 0 4px 0 #922b21, 0 6px 10px rgba(0,0,0,0.3);
+            cursor: pointer; font-size: 11px; font-weight: bold;
+            color: white; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
             display: flex; align-items: center; justify-content: center;
         }
-        .btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #ccc; }
+        .btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #922b21; }
+        .btn.btn-b { background: linear-gradient(145deg, #f39c12, #d68910); box-shadow: 0 4px 0 #b9770e, 0 6px 10px rgba(0,0,0,0.3); }
+        .btn.btn-b:active { box-shadow: 0 2px 0 #b9770e; }
+        .btn.btn-c { background: linear-gradient(145deg, #27ae60, #1e8449); box-shadow: 0 4px 0 #196f3d, 0 6px 10px rgba(0,0,0,0.3); }
+        .btn.btn-c:active { box-shadow: 0 2px 0 #196f3d; }
+
+        .bottom-buttons {
+            position: absolute; bottom: 120px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 20px;
+        }
+        .small-btn {
+            padding: 4px 12px; font-size: 8px; font-family: inherit;
+            background: linear-gradient(145deg, #666, #444);
+            color: #aaa; border: none; border-radius: 10px;
+            cursor: pointer; text-transform: uppercase;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .small-btn:active { transform: scale(0.95); }
 
         /* Stats Panel */
         .stats-panel {
@@ -319,8 +470,12 @@
             .stats-panel { width: 100%; max-width: 320px; margin-top: 20px; }
         }
         @media (max-width: 400px) {
-            .device { width: 280px; height: 350px; }
-            .screen-frame { width: 150px; height: 130px; top: 60px; }
+            .device { width: 240px; height: 380px; }
+            .screen-frame { width: 180px; height: 160px; top: 35px; }
+            .screen-label { top: 200px; }
+            .speaker-grille { top: 230px; }
+            .bottom-buttons { bottom: 100px; }
+            .controls-area { bottom: 20px; padding: 0 15px; }
             .pixel-pet { grid-template-columns: repeat(16, 5px); grid-template-rows: repeat(16, 5px); }
             .pixel { width: 5px; height: 5px; }
         }
@@ -330,18 +485,24 @@
     <h1 class="game-title">TOMO</h1>
 
     <div class="cover-selector">
-        <button class="cover-btn pink active" data-cover="pink"></button>
-        <button class="cover-btn blue" data-cover="blue"></button>
-        <button class="cover-btn purple" data-cover="purple"></button>
-        <button class="cover-btn mint" data-cover="mint"></button>
-        <button class="cover-btn orange" data-cover="orange"></button>
-        <button class="cover-btn glitter" data-cover="glitter"></button>
+        <button class="cover-btn red active" data-cover="red" title="Red"></button>
+        <button class="cover-btn blue" data-cover="blue" title="Blue"></button>
+        <button class="cover-btn green" data-cover="green" title="Green"></button>
+        <button class="cover-btn checkerboard" data-cover="checkerboard" title="Checkerboard"></button>
+        <button class="cover-btn stripes" data-cover="stripes" title="Stripes"></button>
+        <button class="cover-btn dots" data-cover="dots" title="Polka Dots"></button>
+        <button class="cover-btn rainbow" data-cover="rainbow" title="Rainbow"></button>
+        <button class="cover-btn camo" data-cover="camo" title="Camo"></button>
+        <button class="cover-btn galaxy" data-cover="galaxy" title="Galaxy"></button>
+        <button class="cover-btn retro" data-cover="retro" title="Retro"></button>
+        <button class="cover-btn pixel" data-cover="pixel" title="Pixel"></button>
+        <button class="cover-btn wood" data-cover="wood" title="Wood"></button>
     </div>
 
     <div class="main-container">
         <div class="device">
-            <div class="chain-loop"></div>
-            <div class="device-body pink" id="deviceBody">
+            <div class="device-body red" id="deviceBody">
+                <div class="device-notch"></div>
                 <div class="screen-frame">
                     <div class="screen" id="screen">
                         <div class="screen-icons">
@@ -378,10 +539,29 @@
                         </div>
                     </div>
                 </div>
-                <div class="buttons">
-                    <button class="btn" id="btnA">A</button>
-                    <button class="btn" id="btnB">B</button>
-                    <button class="btn" id="btnC">C</button>
+                <div class="screen-label">TOMO</div>
+                <div class="speaker-grille">
+                    <div class="speaker-line"></div>
+                    <div class="speaker-line"></div>
+                    <div class="speaker-line"></div>
+                    <div class="speaker-line"></div>
+                </div>
+                <div class="controls-area">
+                    <div class="dpad">
+                        <button class="dpad-btn dpad-up" id="dpadUp"></button>
+                        <button class="dpad-btn dpad-down" id="dpadDown"></button>
+                        <button class="dpad-btn dpad-left" id="dpadLeft"></button>
+                        <button class="dpad-btn dpad-right" id="dpadRight"></button>
+                        <div class="dpad-center"></div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn btn-b" id="btnB">B</button>
+                        <button class="btn" id="btnA">A</button>
+                    </div>
+                </div>
+                <div class="bottom-buttons">
+                    <button class="small-btn" id="btnSelect">SELECT</button>
+                    <button class="small-btn" id="btnStart">START</button>
                 </div>
             </div>
         </div>
@@ -537,7 +717,7 @@
             name: '', hunger: 100, happiness: 100, energy: 100, cleanliness: 100,
             level: 1, exp: 0, maxExp: 100, age: 0, weight: 5, discipline: 0, generation: 1,
             isSleeping: false, isDead: false, isSick: false, lightsOff: false,
-            poopCount: 0, cover: 'pink', createdAt: null, lastUpdate: null
+            poopCount: 0, cover: 'red', createdAt: null, lastUpdate: null
         };
 
         const $ = id => document.getElementById(id);
@@ -750,7 +930,7 @@
                     if (game.hunger <= 0 || game.happiness <= 0) game.isDead = true;
                 }
                 if (game.createdAt) game.age = Math.floor((Date.now() - game.createdAt) / (1000 * 60 * 60 * 24));
-                changeCover(game.cover || 'pink'); return true;
+                changeCover(game.cover || 'red'); return true;
             }
             return false;
         }
@@ -758,14 +938,15 @@
         function resetGame() {
             if (!confirm('Reset game? All data will be lost.')) return;
             localStorage.removeItem('tomo_save');
-            game = { name: '', hunger: 100, happiness: 100, energy: 100, cleanliness: 100, level: 1, exp: 0, maxExp: 100, age: 0, weight: 5, discipline: 0, generation: 1, isSleeping: false, isDead: false, isSick: false, lightsOff: false, poopCount: 0, cover: 'pink', createdAt: null, lastUpdate: null };
-            $('deathOverlay').classList.remove('active'); $('nameModal').classList.add('active'); changeCover('pink'); updateUI();
+            game = { name: '', hunger: 100, happiness: 100, energy: 100, cleanliness: 100, level: 1, exp: 0, maxExp: 100, age: 0, weight: 5, discipline: 0, generation: 1, isSleeping: false, isDead: false, isSick: false, lightsOff: false, poopCount: 0, cover: 'red', createdAt: null, lastUpdate: null };
+            $('deathOverlay').classList.remove('active'); $('nameModal').classList.add('active'); changeCover('red'); updateUI();
         }
 
         $('btnFood').onclick = feedFood; $('btnSnack').onclick = feedSnack; $('btnGame').onclick = startMiniGame;
         $('btnSleep').onclick = toggleLight; $('btnClean').onclick = clean; $('btnMed').onclick = giveMedicine;
         $('btnPraise').onclick = praise; $('btnReset').onclick = resetGame;
-        $('btnA').onclick = feedFood; $('btnB').onclick = startMiniGame; $('btnC').onclick = toggleLight;
+        $('btnA').onclick = feedFood; $('btnB').onclick = startMiniGame;
+        $('btnSelect').onclick = toggleLight; $('btnStart').onclick = clean;
         document.querySelectorAll('.cover-btn').forEach(b => b.onclick = () => changeCover(b.dataset.cover));
 
         $('nameSubmit').onclick = () => {

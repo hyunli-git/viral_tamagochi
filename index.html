@@ -908,7 +908,8 @@
             else { game.hunger = Math.max(0, game.hunger - 2); game.happiness = Math.max(0, game.happiness - 1); game.energy = Math.max(0, game.energy - 1); game.cleanliness = Math.max(0, game.cleanliness - 1); }
             if (!game.isSleeping && Math.random() < 0.05 && game.poopCount < 2) { game.poopCount++; game.cleanliness = Math.max(0, game.cleanliness - 10); }
             if (!game.isSick && (game.cleanliness < 20 || game.poopCount >= 2) && Math.random() < 0.1) { game.isSick = true; showMessage('Feeling sick!'); }
-            if (game.hunger <= 0 || game.happiness <= 0 || (game.isSick && Math.random() < 0.05)) game.isDead = true;
+            // Pet dies only if both hunger AND happiness are 0, or if sick for too long
+            if ((game.hunger <= 0 && game.happiness <= 0) || (game.isSick && game.hunger <= 0)) game.isDead = true;
             updateUI(); saveGame();
         }
 
@@ -924,10 +925,13 @@
             const saved = localStorage.getItem('tomo_save');
             if (saved) {
                 game = { ...game, ...JSON.parse(saved) };
-                if (game.lastUpdate) {
-                    const offline = Math.min(Math.floor((Date.now() - game.lastUpdate) / 5000), 100);
-                    for (let i = 0; i < offline; i++) { if (!game.isDead) { game.hunger = Math.max(0, game.hunger - 1); game.happiness = Math.max(0, game.happiness - 0.5); } }
-                    if (game.hunger <= 0 || game.happiness <= 0) game.isDead = true;
+                if (game.lastUpdate && !game.isDead) {
+                    // More forgiving offline penalty: 1 minute = 1 hunger/happiness loss, max 50
+                    const offlineMinutes = Math.floor((Date.now() - game.lastUpdate) / 60000);
+                    const penalty = Math.min(offlineMinutes, 50);
+                    game.hunger = Math.max(10, game.hunger - penalty * 0.5);
+                    game.happiness = Math.max(10, game.happiness - penalty * 0.3);
+                    game.energy = Math.min(100, game.energy + penalty * 0.5); // Rest while away
                 }
                 if (game.createdAt) game.age = Math.floor((Date.now() - game.createdAt) / (1000 * 60 * 60 * 24));
                 changeCover(game.cover || 'red'); return true;
